@@ -701,7 +701,7 @@ function drawNewPoint(){
 $(document).ready(function () {
   percentages();
   incomplete();
-  if(user_id=='2'){
+  if(user_id=='2'||user_id=='22'||user_id=='23'||user_id=='23'){
     $('#ex').show();
     $('#pie_chart').show()
 
