@@ -22,6 +22,7 @@ class ExportExcel extends connection
 
         $date1=$_REQUEST['sd'];
         $date2=$_REQUEST['ed'];
+        $status=$_REQUEST['status'];
 
 
             $sql = 'select id, name as "POI Name", business_type as "Business Type", lot_no as "Lot No", street_name as "Street Name", post_code as "Post Code", state as "State", xy, 
@@ -46,7 +47,9 @@ class ExportExcel extends connection
 			   $row["Photo"]='exported_images/'.$pic[$size];
 			   
 			//   echo $pic[$size];
-			 copy('../..'.$path, '../../exported_images/'.$pic[$size]);
+            if($status=='yes') {
+                copy('../..' . $path, '../../exported_images/' . $pic[$size]);
+            }
            //  exit();
 			
             if (!$flag) {
