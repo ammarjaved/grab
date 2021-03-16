@@ -1,7 +1,7 @@
 var map
 var allAdminData;
 var customer;
-var searchlayer ='';
+var searchlayer='null';
 var highlight = L.geoJson(null);
 var highlightStyle = {
   stroke: false,
