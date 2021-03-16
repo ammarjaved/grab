@@ -1,6 +1,7 @@
 var map
 var allAdminData;
 var customer;
+var searchlayer ='';
 var highlight = L.geoJson(null);
 var highlightStyle = {
   stroke: false,
@@ -884,6 +885,9 @@ function removemarker(){
   map.removeLayer(theMarker);
   if(identifyme!=''){
     map.removeLayer(identifyme)
+  }
+  if(searchlayer!=''){
+    map.removeLayer(searchlayer)
   }
 }
 
