@@ -242,7 +242,7 @@ header("Location:" . $loc . "/grab/login.php");
                     map.removeLayer(searchlayer);
                 }
                 var geom1=JSON.parse(data[0].geometry);
-                searchlayer=map.addLayer(L.geoJson(geom1));
+                searchlayer=L.geoJson(geom1).addTo(map);
                 map.setView(new L.LatLng(geom1.coordinates[1],geom1.coordinates[0]), 18);
             }
         });
