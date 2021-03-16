@@ -40,10 +40,10 @@ class ExportExcel extends connection
 			
 			$sql_status="update poi_data set status='exported' where id=".$row["id"];
 			pg_query($sql_status);
-			   $path=$row["image_path"];
+			   $path=$row["Photo"];
 			   $pic=explode('/',$path);
 			   $size=sizeof($pic)-1;
-			   $row["image_path"]='exported_images/'.$pic[$size];
+			   $row["Photo"]='exported_images/'.$pic[$size];
 			   
 			//   echo $pic[$size];
 			 copy('../..'.$path, '../../exported_images/'.$pic[$size]);
