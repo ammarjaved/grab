@@ -228,7 +228,7 @@ header("Location:" . $loc . "/grab/login.php");
     });
 
 
-    var searchlayer='null';
+   // var searchlayer='null';
     function search(){
         var name=$('.typeahead').val();
         $.ajax({
