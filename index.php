@@ -168,8 +168,11 @@ header("Location:" . $loc . "/grab/login.php");
                     <div class="row">
                         <div class="col-md-1">Start date</div><div class="col-md-4"><input type="date" id="date1"></div>
                         <div class="col-md-1">End date</div><div class="col-md-4"><input type="date" id="date2"></div>
-                        <input type="checkbox" id="export_xls"> Check the checkbox to only export excel not to copy images
                         <div id="ancr" style="display: none;"></div>
+                    </div>
+                    <div class="row">
+                        <input type="checkbox" id="export_xls"> Check the checkbox to only export excel not to copy images
+
                     </div>
                     <div class="row">
                         <div class="col-md-4" style="padding-top: 30px;"><button class="btn btn-success" onclick="exportExcelNow()">Export Excel</button></div>
