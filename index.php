@@ -69,7 +69,7 @@ header("Location:" . $loc . "/grab/login.php");
           <form class="navbar-form navbar-right" role="search">
             <div class="form-group has-feedback">
 
-                <span id="searchicon" class="fa fa-search form-control-feedback"></span>
+<!--                <span id="searchicon" class="fa fa-search form-control-feedback"></span>-->
             </div>
           </form>
           <ul class="nav navbar-nav">
@@ -82,6 +82,8 @@ header("Location:" . $loc . "/grab/login.php");
 
               <li class="hidden-xs"><a  href="services/logout.php">Logout</a></li>
 
+              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 500px;"><spsn style="color:white;">POI Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="hec" name="hec" class="typeahead"/></div></li>>
+              <li class="hidden-xs"><button style="margin-top: 10px;margin-left: 20px"  class="btn-success" onclick="search()">Search</button></li>
 
           </ul>
         </div><!--/.navbar-collapse -->
@@ -188,7 +190,7 @@ header("Location:" . $loc . "/grab/login.php");
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.5/typeahead.bundle.min.js"></script>
+    <script src="assets/js/typeahead.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
@@ -210,3 +212,41 @@ header("Location:" . $loc . "/grab/login.php");
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   </body>
 </html>
+<script>
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('.typeahead').typeahead({
+                name: 'hec',
+                remote:'services/search.php?key=%QUERY',
+                limit: 5
+            });
+
+        }, 3000);
+
+
+
+    });
+
+
+    var searchlayer='null';
+    function search(){
+        var name=$('.typeahead').val();
+        $.ajax({
+            url: 'services/searchByName.php?name='+name,
+            dataType: 'JSON',
+            //data: data,
+            method: 'GET',
+            async: false,
+            success: function callback(data) {
+                if(searchlayer!='null'){
+                    map.removeLayer(searchlayer);
+                }
+                var geom1=JSON.parse(data[0].geometry);
+                searchlayer=map.addLayer(L.geoJson(geom1));
+                map.setView(new L.LatLng(geom1.coordinates[1],geom1.coordinates[0]), 18);
+            }
+        });
+
+    }
+
+</script>
