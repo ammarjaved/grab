@@ -13,7 +13,7 @@ class Divisions extends connection
 
         $key=$_GET['key'];
 
-        $sql = "select id as title from poi_data where id>=$key limit 5";
+        $sql = "select id as title from poi_data where id=$key limit 5";
 
         $output = array();
 
