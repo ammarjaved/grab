@@ -82,8 +82,11 @@ header("Location:" . $loc . "/grab/login.php");
 
               <li class="hidden-xs"><a  href="services/logout.php">Logout</a></li>
 
-              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 500px;"><spsn style="color:white;">POI Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="hec" name="hec" class="typeahead"/></div></li>>
+              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 100px;"><spsn style="color:white;">POI Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  id="typeahead"  name="hec" class="typeahead"/></div></li>>
               <li class="hidden-xs"><button style="margin-top: 10px;margin-left: 20px"  class="btn-success" onclick="search()">Search</button></li>
+              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 100px;"><spsn style="color:white;">POI Id Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  name="hec1" id="typeahead1" class="typeahead"/></div></li>>
+              <li class="hidden-xs"><button style="margin-top: 10px;margin-left: 20px"  class="btn-success" onclick="searchid()">Search</button></li>
+
 
           </ul>
         </div><!--/.navbar-collapse -->
@@ -173,7 +176,7 @@ header("Location:" . $loc . "/grab/login.php");
                         <div id="ancr" style="display: none;"></div>
                     </div>
                     <div class="row" style="padding-left: 10px;padding-top: 10px;">
-                        <input type="checkbox" id="export_xls"> Check the checkbox to only export excel not to copy images
+                        <input type="checkbox" id="export_xls"> Check to export Images
 
                     </div>
                     <div class="row">
@@ -215,13 +218,21 @@ header("Location:" . $loc . "/grab/login.php");
 <script>
     $(document).ready(function(){
         setTimeout(function(){
-            $('.typeahead').typeahead({
+            $('#typeahead').typeahead({
                 name: 'hec',
                 remote:'services/search.php?key=%QUERY',
                 limit: 5
             });
 
+            $('#typeahead1').typeahead({
+                name: 'hec1',
+                remote:'services/searchid.php?key=%QUERY',
+                limit: 5
+            });
+
         }, 3000);
+
+
 
 
 
@@ -233,6 +244,34 @@ header("Location:" . $loc . "/grab/login.php");
         var name=$('.typeahead').val();
         $.ajax({
             url: 'services/searchByName.php?name='+name,
+            dataType: 'JSON',
+            //data: data,
+            method: 'GET',
+            async: false,
+            success: function callback(data) {
+                if(searchlayer!='null'){
+                    map.removeLayer(searchlayer);
+                }
+                var geom1=JSON.parse(data[0].geometry);
+                searchlayer=L.geoJson(geom1).addTo(map);
+                map.setView(new L.LatLng(geom1.coordinates[1],geom1.coordinates[0]), 18);
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+
+    // var searchlayer='null';
+    function searchid(){
+        var name=$('#typeahead1').val();
+        $.ajax({
+            url: 'services/searchById.php?name='+name,
             dataType: 'JSON',
             //data: data,
             method: 'GET',

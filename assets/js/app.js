@@ -856,6 +856,11 @@ function savedata(){
     return false;
   }
 
+if(gs==''){
+  alert("please fill Grab Street or click fill check box")
+  return false;
+}
+
   if(bt=='Residential'){
     if(lot_no==''){
       alert("please fill lot no")

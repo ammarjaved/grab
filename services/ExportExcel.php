@@ -14,15 +14,18 @@ class ExportExcel extends connection
         //$key=$_GET['key'];
 
 
-        $filename = "grab_data.xls"; // File Name
+       // $filename = "grab_data.xls"; // File Name
+        $date1=$_REQUEST['sd'];
+        $date2=$_REQUEST['ed'];
+        $status=$_REQUEST['status'];
+        $filename=$date1.'_'.$date2.".xls";
+        mkdir("../../".$date1."_".$date2);
 
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel");
 
 
-        $date1=$_REQUEST['sd'];
-        $date2=$_REQUEST['ed'];
-        $status=$_REQUEST['status'];
+
 
 
             $sql = 'select id, name as "POI Name", business_type as "Business Type", lot_no as "Lot No", street_name as "Street Name", post_code as "Post Code", state as "State", xy, 
@@ -39,16 +42,17 @@ class ExportExcel extends connection
         $flag = false;
         while ($row = pg_fetch_assoc($result_query)) {
 			
-			$sql_status="update poi_data set status='exported' where id=".$row["id"];
-			pg_query($sql_status);
+
 			   $path=$row["Photo"];
 			   $pic=explode('/',$path);
 			   $size=sizeof($pic)-1;
-			   $row["Photo"]='exported_images/'.$pic[$size];
+			   $row["Photo"]=$date1."_".$date2.'/'.$pic[$size];
 			   
 			//   echo $pic[$size];
             if($status=='yes') {
-                copy('../..' . $path, '../../exported_images/' . $pic[$size]);
+                copy('../..' . $path, $date1."_".$date2.'/' . $pic[$size]);
+                $sql_status="update poi_data set status='exported' where id=".$row["id"];
+                pg_query($sql_status);
             }
            //  exit();
 			
