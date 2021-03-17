@@ -50,7 +50,7 @@ class ExportExcel extends connection
 			   
 			//   echo $pic[$size];
             if($status=='yes') {
-                copy('../..' . $path, $date1."_".$date2.'/' . $pic[$size]);
+                copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $pic[$size]);
                 $sql_status="update poi_data set status='exported' where id=".$row["id"];
                 pg_query($sql_status);
             }
