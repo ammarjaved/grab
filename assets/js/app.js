@@ -444,6 +444,14 @@ inpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   transparent: true
 }, {buffer: 10});
 //inpoi.addTo(map);
+grab_customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+  layers: 'GRAB:grab_customer',
+  format: 'image/png',
+  maxZoom: 22,
+  zIndex: 10,
+  transparent: true
+}, {buffer: 10});
+grab_customer.addTo(map);
 
 /* GPS enabled geolocation control set to follow the user's location */
 
