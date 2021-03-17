@@ -7,7 +7,7 @@ var highlightStyle = {
   stroke: false,
   fillColor: "#00FFFF",
   fillOpacity: 0.7,
-  radius: 10
+  radius: 3
 };
 
 var identifyme='';
@@ -136,7 +136,7 @@ function percentages() {
             $("#feature-title").html(feature.properties.id);
             $("#feature-info").html(content);
             $("#featureModal").modal("show");
-         //   highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
+            highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
 
           }
         });
