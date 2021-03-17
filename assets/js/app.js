@@ -478,7 +478,8 @@ setTimeout(function(){
       "State Boundary":state,
 	  "Mukim Boundary":mukim_daerah,
 	  "Locality Boundary":locality,
-      "Postcode Boundary":postcode
+      "Postcode Boundary":postcode,
+      "Customers":grab_customer
       // ,
       // "complete poi":cpoi,
       // "incomplete poi":inpoi
