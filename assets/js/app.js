@@ -47,6 +47,7 @@ function percentages() {
   }
   percent = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
+      label = String("Lot No:"+feature.properties.lot_no)
       return L.circleMarker(latlng, {
         radius: 5,
         fillColor: '#00F700',
@@ -56,7 +57,7 @@ function percentages() {
         ,
         title: '',
         riseOnHover: true
-      });
+      }).bindLabel(label)
     },
     onEachFeature: function (feature, layer) {
       if (feature.properties) {
@@ -161,16 +162,16 @@ function incomplete() {
   }
   incom = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
+      label = String("Lot No:"+feature.properties.lot_no)
       return L.circleMarker(latlng, {
         radius: 5,
         fillColor: '#E20000',
         fillOpacity: 1,
         color: '#E20000',
-        weight: 1
-        ,
+        weight: 1,
         title: '',
         riseOnHover: true
-      });
+      }).bindLabel(label)
     },
     onEachFeature: function (feature, layer) {
       if (feature.properties) {

@@ -30,8 +30,10 @@ header("Location:" . $loc . "/grab/login.php");
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
     <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
     <link rel="stylesheet" href="assets/css/app.css">
+      <link rel="stylesheet" href="lib/leaflet.label.css">
 
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png">
+
+      <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png">
     <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon-120.png">
     <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon-152.png">
     <link rel="icon" sizes="196x196" href="assets/img/favicon-196.png">
@@ -213,6 +215,8 @@ header("Location:" . $loc . "/grab/login.php");
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="lib/leaflet.label.js"></script>
+
   </body>
 </html>
 <script>
