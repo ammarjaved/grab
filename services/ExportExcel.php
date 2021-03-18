@@ -19,7 +19,9 @@ class ExportExcel extends connection
         $date2=$_REQUEST['ed'];
         $status=$_REQUEST['status'];
         $filename=$date1.'_'.$date2.".xls";
-        mkdir("../../".$date1."_".$date2);
+        if (!file_exists("../../".$date1."_".$date2)) {
+            mkdir("../../" . $date1 . "_" . $date2);
+        }
 
         header("Content-Disposition: attachment; filename=\"$filename\"");
         header("Content-Type: application/vnd.ms-excel");
