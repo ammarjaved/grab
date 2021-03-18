@@ -711,7 +711,7 @@ function drawNewPoint(){
 $(document).ready(function () {
   percentages();
   incomplete();
-  if(user_id=='2'||user_id=='22'||user_id=='23'||user_id=='23'){
+  if(user_id=='2'||user_id=='22'||user_id=='23'||user_id=='23'||user_id=='26'){
     $('#ex').show();
     $('#pie_chart').show()
 
@@ -984,6 +984,49 @@ function activeSelectedLayerPano() {
 
   });
 }
+
+function activeSelectedCustomer() {
+//alert(val)
+  map.off('click');
+  map.on('click', function(e) {
+    //map.off('click');
+    $("#wg").html('');
+    // Build the URL for a GetFeatureInfo
+    var url = getFeatureInfoUrl(
+        map,
+        grab_customer,
+        e.latlng,
+        {
+          'info_format': 'application/json',
+          'propertyName': 'NAME,AREA_CODE,DESCRIPTIO'
+        }
+    );
+    $.ajax({
+      url: 'services/proxy.php?url='+encodeURIComponent(url),
+      dataType: 'JSON',
+      //data: data,
+      method: 'GET',
+      async: false,
+      success: function callback(data) {
+
+        if(data.features.length!=0){
+         console.log(data)
+          if(identifyme!=''){
+            map.removeLayer(identifyme)
+          }
+          identifyme = L.geoJson(data.features[0].geometry).addTo(map);
+
+        }
+
+      }
+    });
+
+
+
+    activeSelectedLayerPano();
+  });
+}
+
 
 function preNext(status){
   $("#wg").html('');
