@@ -15,6 +15,23 @@ var oldValuePc;
 var oldValuePcr;
 var img_sel_path='';
 
+$("#list-btn").click(function() {
+  animateSidebar();
+  return false;
+});
+
+$("#sidebar-hide-btn").click(function() {
+  animateSidebar();
+  return false;
+});
+
+function animateSidebar() {
+  $("#sidebar").animate({
+    width: "toggle"
+  }, 350, function() {
+    map.invalidateSize();
+  });
+}
 
 function searchPlaces(){
   var inp = document.getElementById("addr");
@@ -1011,7 +1028,15 @@ function activeSelectedCustomer() {
       success: function callback(data) {
 
         if(data.features.length!=0){
-         console.log(data)
+
+          var str='<tr><th>Address</th><td>'+data.features[0].properties.address+'</td></tr>'+
+              '<tr><th>City</th><td>'+data.features[0].properties.city+'</td></tr>'+
+              '<tr><th>Post Code</th><td>'+data.features[0].properties.post_code+'</td></tr>'+
+              '<tr><th>Region</th><td>'+data.features[0].properties.region+'</td></tr>'+
+              '<tr><th>X</th><td>'+data.features[0].properties.x+'</td></tr>'+
+              '<tr><th>Y</th><td>'+data.features[0].properties.y+'</td></tr>';
+              $("#customer_details").html(str);
+              console.log(data)
           if(identifyme!=''){
             map.removeLayer(identifyme)
           }

@@ -83,16 +83,37 @@ header("Location:" . $loc . "/grab/login.php");
               <li class="hidden-xs" id="ex" style="display: none;"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="showExcelModel()">Export Excel</a></li>
 
               <li class="hidden-xs"><a  href="services/logout.php">Logout</a></li>
+              <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;panel View</a></li>
 
-              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 100px;"><spsn style="color:white;">POI Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  id="typeahead"  name="hec" class="typeahead"/></div></li>>
+              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 50px;"><spsn style="color:white;">POI Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  id="typeahead"  name="hec" class="typeahead"/></div></li>>
               <li class="hidden-xs"><button style="margin-top: 10px;margin-left: 20px"  class="btn-success" onclick="search()">Search</button></li>
-              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 100px;"><spsn style="color:white;">POI Id Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  name="hec1" id="typeahead1" class="typeahead"/></div></li>>
+              <li class="hidden-xs"><div style="padding-top: 10px;padding-left: 50px;"><spsn style="color:white;">POI Id Search</spsn>&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  name="hec1" id="typeahead1" class="typeahead"/></div></li>>
               <li class="hidden-xs"><button style="margin-top: 10px;margin-left: 20px"  class="btn-success" onclick="searchid()">Search</button></li>
 
 
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
+    </div>
+
+    <div id="sidebar">
+        <div class="sidebar-wrapper">
+            <div class="panel panel-default" id="features">
+                <div class="panel-heading">
+                    <h3 class="panel-title">TOC
+                        <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
+                </div>
+
+                <div  class="panel-body">
+                    <button class="btn btn-success" onclick="activeSelectedCustomer()">Active Customer Details</button>
+                    <table style="margin-top: 30px;" class="table table-bordered">
+                        <tbody id="customer_details"></tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
 
