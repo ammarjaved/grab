@@ -2,6 +2,7 @@ var map
 var allAdminData;
 var customer;
 var searchlayer='null';
+var selectedCustomerId='';
 var highlight = L.geoJson(null);
 var highlightStyle = {
   stroke: false,
@@ -469,7 +470,21 @@ grab_customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms",
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
-grab_customer.addTo(map);
+grab_customer.addTo(map)
+
+cd = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+  layers: 'GRAB:customer_data',
+  format: 'image/png',
+  maxZoom: 22,
+  zIndex: 10,
+  cursor:'pointer',
+  transparent: true
+}, {buffer: 10});
+cd.addTo(map);
+
+
+
+
 
 /* GPS enabled geolocation control set to follow the user's location */
 
@@ -497,7 +512,8 @@ setTimeout(function(){
 	  "Mukim Boundary":mukim_daerah,
 	  "Locality Boundary":locality,
       "Postcode Boundary":postcode,
-      "Customers":grab_customer
+      "Customers":grab_customer,
+      "Customer Data":cd
       // ,
       // "complete poi":cpoi,
       // "incomplete poi":inpoi
@@ -857,6 +873,123 @@ function combineNameGS1(){
 
 
 
+function combineName3(){
+  if($('#pc3').is(':checked')){
+    if($('#street_chk4').is(':checked')){
+      var comb = $("#poi_name3").val() + ' - ' + $("#st_name4").val();
+      oldValuePc = $("#poi_name3").val()
+      $("#poi_name3").val(comb)
+    }else {
+      var comb = $("#poi_name3").val() + ' - ' + $("#st_name3").val();
+      oldValuePc = $("#poi_name3").val()
+      $("#poi_name3").val(comb)
+    }
+  }else{
+    $("#poi_name3").val(oldValuePc)
+  }
+}
+
+function combineNameR3(){
+  if($('#pcr3').is(':checked')){
+    if($('#street_chk4').is(':checked')){
+      var comb = $("#lot_no3").val() + ', ' + $("#poi_name3").val() + ' ' + $("#st_name4").val() + ', ' + $("#nh3").val();
+      oldValuePcr = $("#poi_name3").val()
+      $("#poi_name3").val(comb);
+    }else {
+      var comb = $("#lot_no3").val() + ', ' + $("#poi_name3").val() + ' ' + $("#st_name3").val() + ', ' + $("#nh3").val();
+      oldValuePcr = $("#poi_name3").val()
+      $("#poi_name3").val(comb);
+    }
+  }else{
+    $("#poi_name3").val(oldValuePcr)
+  }
+}
+
+function combineNameGS3(){
+  if($('#pgs3').is(':checked')) {
+    if($('#mukim_chk4').is(':checked')){
+      var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#district3").val();
+      $("#gs3").val(comb)
+      //$("#gs3").val(comb)
+    }else {
+      if ($('#mukim_chk3').is(':checked')) {
+        var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#mukim3").val();
+        $("#gs3").val(comb)
+        //$("#gs3").val(comb)
+      } else if ($('#daerah_chk3').is(':checked')) {
+        var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#daerah3").val();
+        $("#gs3").val(comb)
+      }
+    }
+  }else{
+    $("#gs3").val('')
+  }
+
+}
+
+
+
+function savedataCustomer(){
+  combineNameGS3();
+  var poi=encodeURIComponent($("#poi_name3").val().replace(/\'/g, "''"))
+  var bt=encodeURIComponent($("#bt3").val().replace(/\'/g, "''"))
+  var lot_no=encodeURIComponent($("#lot_no3").val().replace(/\'/g, "''"))
+  var st_name=($('#street_chk4').is(':checked'))?encodeURIComponent($("#st_name4").val().replace(/\'/g, "''")):encodeURIComponent($("#st_name3").val().replace(/\'/g, "''"))
+  var p_code=encodeURIComponent($("#p_code3").val().replace(/\'/g, "''"))
+  var state=encodeURIComponent($("#state3").val().replace(/\'/g, "''"))
+  var coor=$("#coor3").val().replace(/\'/g, "''")
+  var cn=encodeURIComponent($("#cn3").val().replace(/\'/g, "''"))
+  var nh=encodeURIComponent($("#nh3").val().replace(/\'/g, "''"))
+  var gs=$("#gs3").val()
+  var an=$("#an3").val()
+
+  var mukim=$("#mukim3").val()
+
+  var daerah=$("#daerah3").val()
+
+
+  var img_path=$("#img_path").val()
+
+  if(poi==''||bt==''||st_name==''||st_name=='null'||p_code==''||state==''||coor==''){
+    alert("please fill all fields")
+    return false;
+  }
+
+  if(gs==''){
+    alert("please fill Grab Street or click fill check box")
+    return false;
+  }
+
+  if(bt=='Residential'){
+    if(lot_no==''){
+      alert("please fill lot no")
+      return false;
+    }
+  }
+
+  var wkt='POINT('+coor.split(',')[0]+' '+coor.split(',')[1]+')'
+
+
+
+  $.ajax({
+    url: "services/saveCustomer.php?poi="+poi+'&bt='+bt+'&lot_no='+lot_no+'&st_name='+st_name+'&p_code='+p_code+'&state='+state+'&coor='+coor+'&geom='+wkt+'&cn='+cn+'&nh='+nh+'&uid='+user_id+'&img_path='+img_path+'&gs='+gs+'&an='+an+'&mukim='+mukim+'&daerah='+daerah+'&id='+selectedCustomerId,
+    type: "GET",
+    // dataType: "json",
+    // contentType: "application/json; charset=utf-8",
+    success: function callback(response) {
+      alert(response);
+      removemarker()
+      percentages()
+      incomplete()
+      map.removeLayer(cd);
+      map.addLayer(cd);
+    }
+  });
+}
+
+
+
+
 function savedata(){
   combineNameGS();
   var poi=encodeURIComponent($("#poi_name").val().replace(/\'/g, "''"))
@@ -1053,6 +1186,239 @@ function activeSelectedCustomer() {
   });
 }
 
+function activeSelectedCustomerActual(){
+//alert(val)
+  map.off('click');
+  map.on('click', function(e) {
+    //map.off('click');
+    $("#wg").html('');
+    // Build the URL for a GetFeatureInfo
+    var url = getFeatureInfoUrl(
+        map,
+        cd,
+        e.latlng,
+        {
+          'info_format': 'application/json',
+          'propertyName': 'NAME,AREA_CODE,DESCRIPTIO'
+        }
+    );
+    $.ajax({
+      url: 'services/proxy.php?url='+encodeURIComponent(url),
+      dataType: 'JSON',
+      //data: data,
+      method: 'GET',
+      async: false,
+      success: function callback(data) {
+
+        selectedCustomerId=data.features[0].id.split('.')[1];
+
+        if(data.features.length!=0){
+
+          if(identifyme!=''){
+            map.removeLayer(identifyme)
+          }
+          console.log(data)
+          var arr=[];
+          arr.push(data.features[0].geometry.coordinates[1])
+          arr.push(data.features[0].geometry.coordinates[0]);
+          identifyme =  L.circleMarker(arr)
+          map.addLayer(identifyme)
+          var tbl= '<form action="">'+
+              '<div class="form-group">'+
+
+              '<div class="form-group">'+
+              '<select name="bt" class="form-control" id="bt3" >'+
+              '<option selected value="">Select business type</option>'+
+              '<option value="HealthCare" >Healthcare</option>'+
+              '<option value="Education">Education</option>'+
+              '<option value="Temple">Temple</option>'+
+              '<option value="Residential">Residential</option>'+
+              "<option value='Government building'>Government building</option>"+
+              "<option value='Movie/Theatre'>Movie/theatre</option>"+
+              "<option value='Hotel'>Hotel</option>"+
+              '<option value="Airport">Airport</option>'+
+              '<option value="Bank">Bank</option>'+
+              '<option value="Museum">Museum</option>'+
+              '<option value="Monument">Monument</option>'+
+              '<option value="Church">Church</option>'+
+              '<option value="Mosque">Mosque</option>'+
+              '<option value="Library">Library</option>'+
+              '<option value="Station">Station</option>'+
+              '<option value="Food and Beverage">Food and Beverage</option>'+
+              '<option value="Commercial Building"> Commercial Building</option>'+
+              '<option value="Sports/Recreation Center"> Sports/Recreation Center</option>'+
+              '<option value="Police">Police</option>'+
+              '<option value="Shopping Mall/Shops">Shopping Mall/Shops</option>'+
+              '<option value="Market">Market</option>'+
+              '<option value="Stadium"> Stadium</option>'+
+              '<option value="Bar/Pub/Club"> Bar/Pub/Club</option>'+
+              '<option value="Embassy">Embassy</option>'+
+              '<option value="Casino">Casino</option>'+
+              '<option value="Quay">Quay</option>'+
+              '<option value="Utilities">Utilities</option>'+
+              '<option value="Street">Street</option>'+
+              '<option value="Parking Lot">Parking Lot</option>'+
+              '</select>'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >POI Name :</label>'+
+              '<input type="text" class="form-control" id="poi_name3" name="poi_name">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Residential POI Name :</label>'+
+              '<input type="checkbox"  onclick="combineNameR3()" id="pcr3" name="pcr">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Branch POI Name:</label>'+
+              '<input type="checkbox" onclick="combineName3()"  id="pc3" name="pc">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Alternative Name :</label>'+
+              '<input type="text" class="form-control" id="an3" name="an">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Lot No :</label>'+
+              '<input type="text" class="form-control"  value="'+data.features[0].properties.house_no.trim()+'" id="lot_no3" name="lot_no">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Grab Street:</label>'+
+              '<input type="text" class="form-control" value="" id="gs3" name="gs">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Fill Grab Street:</label>'+
+              '<input type="checkbox"  onclick="combineNameGS3()" id="pgs3" name="pgs">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Street Customer  :<input type="checkbox"   id="street_chk4" name="mukim_chk" checked></label>'+
+              '<input type="text" class="form-control" value="'+data.features[0].properties.street.trim()+'" id="st_name4" name="district3">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Street Name  :</label>'+
+              '<input type="text" class="form-control" value="" id="st_name3" name="st_name">'+
+              '</div>'+
+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Area/Building Name/Neighbourhood  :</label>'+
+              '<input type="text" class="form-control" value="" id="nh3" name="nh">'+
+              '</div>'+
+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >District  :<input type="checkbox"   id="mukim_chk4" name="mukim_chk" checked></label>'+
+              '<input type="text" class="form-control" value="'+data.features[0].properties.district.trim()+'" id="district3" name="district3">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Mukim  :' +
+              '<input type="checkbox"  onclick="combineMukim()" id="mukim_chk3" name="mukim_chk">' +
+              '</label>'+
+              '<input type="text" class="form-control" value="" id="mukim3" name="mukim">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Daerah  :<input type="checkbox"  onclick="combineDaerah()" id="daerah_chk" name="daerah_chk"></label>'+
+              '<input type="text" class="form-control" value="" id="daerah3" name="daerah">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Postcode:</label>'+
+              '<input type="text" value="" class="form-control" id="p_code3" name="p_code">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >City Name :</label>'+
+              '<input type="text" value="Klang Valley" class="form-control" id="cn3" name="cn" readonly>'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >State    :</label>'+
+              '<input type="text" class="form-control" value="" id="state3" name="state">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Coordinates (x/y)    :</label>'+
+              '<input type="text" value="'+parseFloat(data.features[0].geometry.coordinates[0]).toFixed(6)+','+parseFloat(data.features[0].geometry.coordinates[1]).toFixed(6)+'" id="coor3" class="form-control" name="coor">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Image Path    :</label>'+
+              '<input type="text" class="form-control" value="'+img_sel_path+'" id="img_path" name="img_path">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Image preview    :</label>'+
+              '<a href="'+'http://121.121.232.53:88'+img_sel_path+'" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; onclick= rotate_img(&quot;pic1&quot)  &gt;Rotate image&lt;/button&gt;\'><img src="'+'http://121.121.232.53:88'+img_sel_path+'" width=30px height=30px/></a>'+
+              '</div>'+
+
+
+
+
+              '</form>'+
+              '<div class="row">'+
+              '<button style="padding-left: 30px;" id="btnSave1" type="button" onclick="startEdit()" class="btn btn-success">Start Edit</button>'+
+              '<button style="padding-left: 30px;" id="btnSave2" type="button" onclick="stopEdit()" class="btn btn-success">Stop Edit</button>'+
+              '<button style="padding-left: 30px;" id="btnSave3" type="button" onclick="fillForm()" class="btn btn-success">Fill Form</button>'+
+              '<button style="padding-left: 30px;" id="btnSave" type="button" onclick="savedataCustomer()" class="btn btn-success">Save</button>'+
+              '</div>';
+
+
+          $("#c_data_form").html(tbl);
+          identifyme.on('edit', function(e) {
+          //  console.log(e);
+            var lat_lng=e.target._latlng.lng.toFixed(6)+','+e.target._latlng.lat.toFixed(6);
+            $("#coor3").val(lat_lng);
+          });
+
+        }
+
+      }
+    });
+
+
+
+    activeSelectedLayerPano();
+  });
+}
+
+function fillForm(){
+  var latlon=$("#coor3").val().split(',');
+  $.ajax({
+    url: "services/main.php?geom=" + latlon[0] + ' ' + latlon[1],
+    type: "GET",
+    // dataType: "json",
+    // contentType: "application/json; charset=utf-8",
+    success: function callback(response) {
+     // console.log(response);
+      $("#st_name3").val((response.street==false)? '':response.street[0].street);
+      $("#nh3").val((response.locality==false)?'':response.locality[0].name);
+      $("#p_code3").val((response.postcode==false)?'':response.postcode[0].postcode);
+      $("#state3").val((response.state==false)?'':response.state[0].nam);
+      $("#mukim3").val((response.mukdae==false)?'':response.mukdae[0].mukim);
+      $("#daerah3").val((response.mukdae==false)?'':response.mukdae[0].daerah);
+
+
+
+
+    }
+  });
+}
+
+function startEdit(){
+  identifyme.editing.enable()
+}
+function stopEdit(){
+  identifyme.editing.disable()
+}
 
 function preNext(status){
   $("#wg").html('');

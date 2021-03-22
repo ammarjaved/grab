@@ -104,11 +104,19 @@ header("Location:" . $loc . "/grab/login.php");
                         <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
                 </div>
 
-                <div  class="panel-body">
-                    <button class="btn btn-success" onclick="activeSelectedCustomer()">Active Customer Details</button>
+                <div   class="panel-body">
+                    <div class="row">
+                    <button class="btn btn-success" onclick="activeSelectedCustomer()">Customer Black</button>
+                    <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Customer Red</button>
+                    </div>
+                    <div>
                     <table style="margin-top: 30px;" class="table table-bordered">
                         <tbody id="customer_details"></tbody>
                     </table>
+                    </div>
+                    <div style="overflow-y: scroll;height: 500px;"  id="c_data_form">
+
+                    </div>
 
                 </div>
 
@@ -227,6 +235,16 @@ header("Location:" . $loc . "/grab/login.php");
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://unpkg.com/esri-leaflet@1.0.5"></script>
+
+    <script src="assets/leaflet_draw/src/Leaflet.draw.js"></script>
+    <script src="assets/leaflet_draw/src/Leaflet.Draw.Event.js"></script>
+    <script src="assets/leaflet_draw/src/ext/TouchEvents.js"></script>
+    <script src="assets/leaflet_draw/src/edit/handler/Edit.SimpleShape.js"></script>
+    <script src="assets/leaflet_draw/src/edit/handler/Edit.Marker.js"></script>
+    <script src="assets/leaflet_draw/src/edit/handler/Edit.CircleMarker.js"></script>
+
+
+
     <link rel="stylesheet" href="assets/js/window-engine.css" />
     <script src="assets/js/window-engine.js"></script>
     <link rel="stylesheet" href="lib/images_slider/css-view/lightbox.css" type="text/css" />
