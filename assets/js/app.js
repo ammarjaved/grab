@@ -907,10 +907,13 @@ function combineNameR3(){
 
 function combineNameGS3(){
   if($('#pgs3').is(':checked')) {
-    if($('#mukim_chk4').is(':checked')){
+    if($('#mukim_chk4').is(':checked')&&$('#street_chk4').is(':checked')){
       var comb = $("#st_name4").val() + ', ' + $("#nh3").val() + ', ' + $("#district3").val();
       $("#gs3").val(comb)
       //$("#gs3").val(comb)
+    }else if($('#mukim_chk4').is(':checked')){
+      var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#district3").val();
+      $("#gs3").val(comb)
     }else {
       if ($('#mukim_chk3').is(':checked')) {
         var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#mukim3").val();
