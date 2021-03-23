@@ -35,7 +35,7 @@ class ExportExcel extends connection
 			from poi_data where date_time::date>='."'".$date1."'".'::date and date_time::date<='."'".$date2."'".'::date and name is not null and business_type is not null  and
                 street_name is not null and  post_code is not null and state is not null and xy is not null 
                 and area_building_name_neighbourhood is not null and city_name is not null and image_path is not null and
-                grab_street is not null and image_path<>'."''".' limit 10;';
+                grab_street is not null and image_path<>'."''".' ;';
 
           //  echo $sql;
 		  
