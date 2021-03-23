@@ -35,7 +35,7 @@ class ExportExcel extends connection
 			from poi_data where date_time::date>='."'".$date1."'".'::date and date_time::date<='."'".$date2."'".'::date and name is not null and business_type is not null  and
                 street_name is not null and  post_code is not null and state is not null and xy is not null 
                 and area_building_name_neighbourhood is not null and city_name is not null and image_path is not null and
-                grab_street is not null and image_path<>'."''".';';
+                grab_street is not null and image_path<>'."''".' limit 10;';
 
           //  echo $sql;
 		  
@@ -48,7 +48,8 @@ class ExportExcel extends connection
 			   $path=$row["Photo"];
 			   $pic=explode('/',$path);
 			   $size=sizeof($pic)-1;
-			   $row["Photo"]=$date1."_".$date2.'/'.$pic[$size];
+			  // $row["Photo"]=$date1."_".$date2.'/'.$pic[$size];
+               $row["Photo"]=$date1."_".$date2.'/'.$row["id"].'jpg';
 
             $sql_status11="select user_name from tbl_users where id=". $row["created_by"];
             $result_query11=pg_query($sql_status11);
@@ -57,7 +58,9 @@ class ExportExcel extends connection
 			   
 			//   echo $pic[$size];
             if($status=='yes') {
-                copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $pic[$size]);
+               // copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $pic[$size]);
+                copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $row["id"].'jpg');
+
                 $sql_status="update poi_data set status='exported' where id=".$row["id"];
                 pg_query($sql_status);
             }
