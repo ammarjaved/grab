@@ -25,7 +25,7 @@ class Pss extends connection
         $output = array();
 
         $user_id=$_GET['id'];
-        if($user_id=='23'||$user_id=='22'||$user_id=='39'){
+        if($user_id=='23'||$user_id=='22'||$user_id=='26'){
             $sql1 = "SELECT json_build_object(
     'type', 'FeatureCollection',
     'crs',  json_build_object(
