@@ -24,7 +24,7 @@ class Pss extends connection
     {
         $output = array();
 
-
+        $user_id=$_GET['id'];
         $sql1="SELECT json_build_object(
     'type', 'FeatureCollection',
     'crs',  json_build_object(
@@ -64,7 +64,7 @@ SELECT id, name, business_type, lot_no, street_name, post_code, state, xy,geom,a
 	FROM public.poi_data) as tbl1 where name is not null and business_type is not null  and
                 street_name is not null and  post_code is not null and state is not null and xy is not null 
                 and area_building_name_neighbourhood is not null and city_name is not null and image_path is not null and
-                grab_street is not null and image_path<>'' and image_path<>'null' ";
+                grab_street is not null and image_path<>'' and image_path<>'null' and created_by='$user_id'";
 
 
         $result_query1 = pg_query($sql1);

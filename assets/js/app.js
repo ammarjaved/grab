@@ -162,7 +162,7 @@ function percentages() {
       }
     }
   });
-  $.getJSON("services/plot.php", function (data) {
+  $.getJSON("services/plot.php?id="+user_id, function (data) {
     percent.addData(JSON.parse(data[0].json_build_object));
     // map.addLayer(landuse);
     // setTimeout(function(){
@@ -275,7 +275,7 @@ function incomplete() {
       }
     }
   });
-  $.getJSON("services/plot1.php", function (data) {
+  $.getJSON("services/plot1.php?id="+user_id, function (data) {
     incom.addData(JSON.parse(data[0].json_build_object));
     // map.addLayer(landuse);
     // setTimeout(function(){
@@ -432,12 +432,13 @@ postcode = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
 //postcode.addTo(map);
 
 cpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
-  layers: 'GRAB:complete_poi',
+  layers: 'GRAB:complete_data',
   format: 'image/png',
   maxZoom: 22,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
+cpoi.addTo(map);
 
 locality = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:locality_boundary',
@@ -456,13 +457,13 @@ mukim_daerah = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", 
 }, {buffer: 10});
 //cpoi.addTo(map);
 inpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
-  layers: 'GRAB:incomplete_poi',
+  layers: 'GRAB:incomplete_data',
   format: 'image/png',
   maxZoom: 22,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
-//inpoi.addTo(map);
+inpoi.addTo(map);
 grab_customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:grab_customer',
   format: 'image/png',
@@ -513,10 +514,10 @@ setTimeout(function(){
 	  "Locality Boundary":locality,
       "Postcode Boundary":postcode,
       "Customers":grab_customer,
-      "Customer Data":cd
+      "Customer Data":cd,
       // ,
-      // "complete poi":cpoi,
-      // "incomplete poi":inpoi
+       "complete poi":cpoi,
+       "incomplete poi":inpoi
 
 
       // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
