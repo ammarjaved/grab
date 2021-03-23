@@ -153,7 +153,7 @@ header("Location:" . $loc . "/grab/login.php");
                   </div>
               </div>
           </div>
-          <div id="pie_chart" style="display:none;width:300px;height: 300px;background-color: white;z-index: 1000000;position: absolute;margin-top:23%;margin-left: 20px;"></div>
+<!--          <div id="pie_chart" style="display:none;width:300px;height: 300px;background-color: white;z-index: 1000000;position: absolute;margin-top:23%;margin-left: 20px;"></div>-->
       </div>
 
 

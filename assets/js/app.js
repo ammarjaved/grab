@@ -789,7 +789,7 @@ $(document).ready(function () {
         y: remaining
       }]
 
-      pieChart(data);
+    //  pieChart(data);
 
     }
   });
@@ -908,7 +908,7 @@ function combineNameR3(){
 function combineNameGS3(){
   if($('#pgs3').is(':checked')) {
     if($('#mukim_chk4').is(':checked')){
-      var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#district3").val();
+      var comb = $("#st_name4").val() + ', ' + $("#nh3").val() + ', ' + $("#district3").val();
       $("#gs3").val(comb)
       //$("#gs3").val(comb)
     }else {
