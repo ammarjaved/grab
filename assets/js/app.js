@@ -464,14 +464,14 @@ inpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   transparent: true
 }, {buffer: 10});
 inpoi.addTo(map);
-grab_customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
-  layers: 'GRAB:grab_customer',
-  format: 'image/png',
-  maxZoom: 22,
-  zIndex: 10,
-  transparent: true
-}, {buffer: 10});
-grab_customer.addTo(map)
+// grab_customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+//   layers: 'GRAB:grab_customer',
+//   format: 'image/png',
+//   maxZoom: 22,
+//   zIndex: 10,
+//   transparent: true
+// }, {buffer: 10});
+// grab_customer.addTo(map)
 
 cd = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:customer_data',
@@ -513,8 +513,8 @@ setTimeout(function(){
 	  "Mukim Boundary":mukim_daerah,
 	  "Locality Boundary":locality,
       "Postcode Boundary":postcode,
-      "Customers":grab_customer,
-      "Customer Data":cd,
+     // "Customers":grab_customer,
+      "Address":cd,
       // ,
        "complete poi":cpoi,
        "incomplete poi":inpoi

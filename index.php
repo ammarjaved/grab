@@ -100,29 +100,29 @@ header("Location:" . $loc . "/grab/login.php");
         <div class="sidebar-wrapper">
             <div class="panel panel-default" id="features">
                 <div class="panel-heading">
-                    <h3 class="panel-title">TOC
+                    <h3 class="panel-title">
+                        <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Click to Activate Address</button>
                         <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
                 </div>
 
-                <div   class="panel-body">
-                    <ul class="nav nav-tabs">
-                        <li class="active" onclick="activeSelectedCustomer()"><a data-toggle="tab" href="#home">Customer White</a></li>
-                        <li onclick="activeSelectedCustomerActual()"><a data-toggle="tab" href="#c_data_form">Customer Orange</a></li>
-                    </ul>
+                <div  style="overflow-y: scroll;height: 600px;" id="c_data_form" class="panel-body">
+<!--                    <ul class="nav nav-tabs">-->
+<!--                        <li class="active" onclick="activeSelectedCustomer()"><a data-toggle="tab" href="#home">Customer White</a></li>-->
+<!--                        <li onclick="activeSelectedCustomerActual()"><a data-toggle="tab" href="#c_data_form">Address</a></li>-->
+<!--                    </ul>-->
 <!--                    <div class="row">-->
 <!--                    <button class="btn btn-success" onclick="activeSelectedCustomer()">Customer Black</button>-->
-<!--                    <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Customer Orange</button>-->
 <!--                    </div>-->
-                    <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                    <table style="margin-top: 30px;" class="table table-bordered">
-                        <tbody id="customer_details"></tbody>
-                    </table>
-                    </div>
-                    <div style="overflow-y: scroll;height: 500px;"  class="tab-pane fade" id="c_data_form">
-
-                    </div>
-                    </div>
+<!--                    <div class="tab-content">-->
+<!--                    <div id="home" class="tab-pane fade ">-->
+<!--                    <table style="margin-top: 30px;" class="table table-bordered">-->
+<!--                        <tbody id="customer_details"></tbody>-->
+<!--                    </table>-->
+<!--                    </div>-->
+<!--                    <div style="overflow-y: scroll;height: 500px;" id="c_data_form">-->
+<!---->
+<!--                    </div>-->
+<!--                    </div>-->
 
                 </div>
 
