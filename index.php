@@ -105,17 +105,23 @@ header("Location:" . $loc . "/grab/login.php");
                 </div>
 
                 <div   class="panel-body">
-                    <div class="row">
-                    <button class="btn btn-success" onclick="activeSelectedCustomer()">Customer Black</button>
-                    <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Customer Red</button>
-                    </div>
-                    <div>
+                    <ul class="nav nav-tabs">
+                        <li class="active" onclick="activeSelectedCustomer()"><a data-toggle="tab" href="#home">Customer White</a></li>
+                        <li onclick="activeSelectedCustomerActual()"><a data-toggle="tab" href="#c_data_form">Customer Orange</a></li>
+                    </ul>
+<!--                    <div class="row">-->
+<!--                    <button class="btn btn-success" onclick="activeSelectedCustomer()">Customer Black</button>-->
+<!--                    <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Customer Orange</button>-->
+<!--                    </div>-->
+                    <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
                     <table style="margin-top: 30px;" class="table table-bordered">
                         <tbody id="customer_details"></tbody>
                     </table>
                     </div>
-                    <div style="overflow-y: scroll;height: 500px;"  id="c_data_form">
+                    <div style="overflow-y: scroll;height: 500px;"  class="tab-pane fade" id="c_data_form">
 
+                    </div>
                     </div>
 
                 </div>
