@@ -49,7 +49,7 @@ class ExportExcel extends connection
 			   $pic=explode('/',$path);
 			   $size=sizeof($pic)-1;
 			  // $row["Photo"]=$date1."_".$date2.'/'.$pic[$size];
-               $row["Photo"]=$date1."_".$date2.'/'.$row["id"].'jpg';
+               $row["Photo"]=$date1."_".$date2.'/'.$row["id"].'.jpg';
 
             $sql_status11="select user_name from tbl_users where id=". $row["created_by"];
             $result_query11=pg_query($sql_status11);
@@ -59,7 +59,7 @@ class ExportExcel extends connection
 			//   echo $pic[$size];
             if($status=='yes') {
                // copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $pic[$size]);
-                copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $row["id"].'jpg');
+                copy('../..' . $path, '../../'.$date1."_".$date2.'/' . $row["id"].'.jpg');
 
                 $sql_status="update poi_data set status='exported' where id=".$row["id"];
                 pg_query($sql_status);
