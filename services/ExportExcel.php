@@ -38,12 +38,19 @@ class ExportExcel extends connection
                 and area_building_name_neighbourhood is not null and city_name is not null and image_path is not null and
                 grab_street is not null and image_path<>' . "''" . ' ;';
           }else{
-              $sql = 'select id, name as "POI Name", business_type as "Business Type", lot_no as "Lot No", street_name as "Street Name", post_code as "Post Code", state as "State", xy, 
-			area_building_name_neighbourhood as "Area", city_name as "City Name", image_path as "Photo", grab_street as "Grab Street", alternative_name as "Alternative Name",created_by
-			from poi_data where date_time::date>=' . "'" . $date1 . "'" . '::date and date_time::date<=' . "'" . $date2 . "'" . '::date  ;';
+              $sql = 'select a.* from (select id, name as "POI Name", business_type as "Business Type", lot_no as "Lot No", street_name as "Street Name", post_code as "Post Code", state as "State", xy, 
+			area_building_name_neighbourhood as "Area", city_name as "City Name", image_path as "Photo", grab_street as "Grab Street", alternative_name as "Alternative Name",created_by,date_time
+			from poi_data where  name is  null or business_type is null or
+            street_name is  null or  post_code is  null or state is  null or xy is null
+            or area_building_name_neighbourhood is null or city_name is null or
+            grab_street is null) as a
+             where a.date_time::date>=' . "'" . $date1 . "'" . '::date and a.date_time::date<=' . "'" . $date2 . "'" . '::date  and a."Photo"=\'\' or a."Photo"=\'null\' or
+a."Photo" is null;';
           }
 
-          //  echo $sql;
+
+      //    echo $sql;
+
 		  
       // exit();
         $result_query = pg_query($sql);
@@ -52,19 +59,26 @@ class ExportExcel extends connection
 			
 
 			   $path=$row["Photo"];
+			  // echo $path;
+			  // exit();
 			   if(is_string($path)) {
                    $pic = explode('/', $path);
                    $size = sizeof($pic) - 1;
+                   $myid=$row["id"];
                    // $row["Photo"]=$date1."_".$date2.'/'.$pic[$size];
-                   $row["Photo"] = $date1 . "_" . $date2 . '/' . $row["id"] . '.jpg';
+                   $row["Photo"] = $date1 . "_" . $date2 . '/' . $myid . '.jpg';
                }else{
                    $row["Photo"]='';
                }
-
-            $sql_status11="select user_name from tbl_users where id=". $row["created_by"];
+            if($row["created_by"]){
+            $sql_status11="select user_name from tbl_users where id=". $row["created_by"]." and user_name is not null";
             $result_query11=pg_query($sql_status11);
-            $row1 = pg_fetch_assoc($result_query11);
-            $row["created_by"]=$row1['user_name'];
+
+                $row1 = pg_fetch_assoc($result_query11);
+                $row["created_by"] = $row1['user_name'];
+            }else{
+                $row["created_by"] = '';
+            }
 			   
 			//   echo $pic[$size];
             if($status=='yes') {
