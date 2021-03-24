@@ -916,10 +916,13 @@ function combineNameGS3(){
       var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#district3").val();
       $("#gs3").val(comb)
     }else {
-      if ($('#mukim_chk3').is(':checked')) {
-        var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#mukim3").val();
+      if ($('#mukim_chk3').is(':checked')&&$('#street_chk4').is(':checked')) {
+        var comb = $("#st_name4").val() + ', ' + $("#nh3").val() + ', ' + $("#mukim3").val();
         $("#gs3").val(comb)
         //$("#gs3").val(comb)
+      }else if($('#mukim_chk3').is(':checked')){
+        var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#mukim3").val();
+        $("#gs3").val(comb)
       } else if ($('#daerah_chk3').is(':checked')) {
         var comb = $("#st_name3").val() + ', ' + $("#nh3").val() + ', ' + $("#daerah3").val();
         $("#gs3").val(comb)
