@@ -61,7 +61,7 @@ a."Photo" is null;';
 			   $path=$row["Photo"];
 			  // echo $path;
 			  // exit();
-			   if(is_string($path)) {
+			   if($path!=null||$path!=''||$path!='null') {
                    $pic = explode('/', $path);
                    $size = sizeof($pic) - 1;
                    $myid=$row["id"];
