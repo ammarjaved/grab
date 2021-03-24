@@ -1528,12 +1528,19 @@ function exportExcelNow(){
   var sd=$('#date1').val()
 var ed=$('#date2').val();
   var status=''
+  var inc='';
  if($('#export_xls').is(':checked'))
   {
     status='yes';
   }else{
    status='no'
  }
+  if($('#export_xls1').is(':checked'))
+  {
+    inc='yes';
+  }else{
+    inc='no'
+  }
 
   if(sd==''||ed==''){
     alert("Please select dates");
@@ -1547,7 +1554,7 @@ var ed=$('#date2').val();
     //
     //   }
     // });
-    $("#ancr").html('<a id="anchr1" href="services/ExportExcel.php?sd='+ sd + '&ed=' + ed+'&status='+status+'" target="_blank"></a>>');
+    $("#ancr").html('<a id="anchr1" href="services/ExportExcel.php?sd='+ sd + '&ed=' + ed+'&status='+status+'&inc='+inc+'"+inc target="_blank"></a>>');
     setTimeout(function(){
       $("#anchr1")[0].click()
     },2000)

@@ -213,7 +213,8 @@ header("Location:" . $loc . "/grab/login.php");
                         <div id="ancr" style="display: none;"></div>
                     </div>
                     <div class="row" style="padding-left: 10px;padding-top: 10px;">
-                        <input type="checkbox" id="export_xls"> Check to export Images
+                        <input type="checkbox" id="export_xls"> Check to export Images<br />
+                        <input type="checkbox" id="export_xls1"> Check to export incomplete as well
 
                     </div>
                     <div class="row">
