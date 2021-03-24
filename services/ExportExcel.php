@@ -43,7 +43,7 @@ class ExportExcel extends connection
 			from poi_data where  name is  null or business_type is null or
             street_name is  null or  post_code is  null or state is  null or xy is null
             or area_building_name_neighbourhood is null or city_name is null or
-            grab_street is null) as a
+            grab_street is null or image_path is not null or image_path<>' . "''" . ' or image_path=' . "'null'" . ') as a
              where a.date_time::date>=' . "'" . $date1 . "'" . '::date and a.date_time::date<=' . "'" . $date2 . "'" . '::date  and a."Photo"=\'\' or a."Photo"=\'null\' or
 a."Photo" is null;';
           }
