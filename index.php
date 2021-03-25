@@ -101,8 +101,12 @@ header("Location:" . $loc . "/grab/login.php");
             <div class="panel panel-default" id="features">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Click to Activate Address</button>
                         <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
+                    <div class="row">
+                        <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Activate Address</button>
+                        <button class="btn btn-success" onclick="percentages()">Activate Complete</button>
+                        <button class="btn btn-success" style="margin-top: 10px;" onclick="incomplete()">Activate Incomplete</button>
+                    </div>
                 </div>
 
                 <div  style="overflow-y: scroll;height: 600px;" id="c_data_form" class="panel-body">

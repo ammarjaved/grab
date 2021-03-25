@@ -60,88 +60,110 @@ function searchPlaces(){
 
 var percent='';
 function percentages() {
-  if(percent!=''){
-    map.removeLayer(percent);
-  }
-  percent = L.geoJson(null, {
-    pointToLayer: function (feature, latlng) {
-      label = String("Lot No:"+feature.properties.lot_no)
-      return L.circleMarker(latlng, {
-        radius: 5,
-        fillColor: '#00F700',
-        fillOpacity: 1,
-        color: '#00F700',
-        weight: 1
-        ,
-        title: '',
-        riseOnHover: true
-      }).bindLabel(label)
-    },
-    onEachFeature: function (feature, layer) {
-      if (feature.properties) {
+  // if(percent!=''){
+  //   map.removeLayer(percent);
+  // }
+  //percent = L.geoJson(null, {
+    // pointToLayer: function (feature, latlng) {
+    //   label = String("Lot No:"+feature.properties.lot_no)
+    //   return L.circleMarker(latlng, {
+    //     radius: 5,
+    //     fillColor: '#00F700',
+    //     fillOpacity: 1,
+    //     color: '#00F700',
+    //     weight: 1
+    //     ,
+    //     title: '',
+    //     riseOnHover: true
+    //   }).bindLabel(label)
+    // },
+   // onEachFeature: function (feature, layer) {
+  map.off('click');
+  map.on('click', function(e) {
+    //map.off('click');
+    // Build the URL for a GetFeatureInfo
+    var url = getFeatureInfoUrl(
+        map,
+        cpoi,
+        e.latlng,
+        {
+          'info_format': 'application/json',
+          'propertyName': 'NAME,AREA_CODE,DESCRIPTIO'
+        }
+    );
+    $.ajax({
+      url: 'services/proxy.php?url='+encodeURIComponent(url),
+      dataType: 'JSON',
+      //data: data,
+      method: 'GET',
+      async: false,
+      success: function callback(data) {
+
+
+        //  if (feature.properties) {
         var content = "<table class='table table-striped table-bordered table-condensed'>" +
-            "<tr style='display: none;'><th>Id</th><td>" + "<input type='text' class='form-control' value="+feature.id+" id='id1' name='id1' readonly/>" + "</td></tr>" +
-            "<tr><th>Business Type</th><td>"+
-            "<select name='bt1'  class='form-control' id='bt1' >"+
-            "<option  value='"+feature.properties.business_type+"'>"+feature.properties.business_type+"</option>"+
-            "<option value='Healthcare' >Healthcare</option>"+
-            "<option value='Education'>Education</option>"+
-            "<option value='Temple'>Temple</option>"+
-            "<option value='Residential'>Residential</option>"+
-            "<option value='Government Building'>Government Building</option>"+
-            "<option value='Movie/Theatre'>Movie/Theatre</option>"+
-            "<option value='Hotel'>Hotel</option>"+
-            "<option value='Airport'>Airport</option>"+
-            "<option value='Mank'>Bank</option>"+
-            "<option value='Museum'>Museum</option>"+
-            "<option value='Monument'>Monument</option>"+
-            "<option value='Church'>Church</option>"+
-            "<option value='Mosque'>Mosque</option>"+
-            "<option value='Library'>Library</option>"+
-            "<option value='Station'>Station</option>"+
-            "<option value='Food And Beverage'>Food And Beverage</option>"+
-            "<option value='Commercial Building'>Commercial Building</option>"+
-            "<option value='Sports/Recreation Center'> Sports/Recreation Center</option>"+
-            "<option value='Police'>Police</option>"+
-            "<option value='Shopping Mall/Shops'>Shopping Mall/Shops</option>"+
-            "<option value='Market'>Market</option>"+
-            "<option value='Stadium'> Stadium</option>"+
-            "<option value='Bar/Pub/Club'> Bar/Pub/Club</option>"+
-            "<option value='Embassy'>Embassy</option>"+
-            "<option value='Casino'>Casino</option>"+
-            "<option value='Quay'>Quay</option>"+
-            "<option value='Utilities'>Utilities</option>"+
-            "<option value='Street'>Street</option>"+
-            "<option value='Parking lot'>Parking lot</option>"+
-            "</select>"+
+            "<tr style='display: none;'><th>Id</th><td>" + "<input type='text' class='form-control' value=" + data.features[0].properties.id + " id='id1' name='id1' readonly/>" + "</td></tr>" +
+            "<tr><th>Business Type</th><td>" +
+            "<select name='bt1'  class='form-control' id='bt1' >" +
+            "<option  value='" + data.features[0].properties.business_type + "'>" + data.features[0].properties.business_type + "</option>" +
+            "<option value='Healthcare' >Healthcare</option>" +
+            "<option value='Education'>Education</option>" +
+            "<option value='Temple'>Temple</option>" +
+            "<option value='Residential'>Residential</option>" +
+            "<option value='Government Building'>Government Building</option>" +
+            "<option value='Movie/Theatre'>Movie/Theatre</option>" +
+            "<option value='Hotel'>Hotel</option>" +
+            "<option value='Airport'>Airport</option>" +
+            "<option value='Mank'>Bank</option>" +
+            "<option value='Museum'>Museum</option>" +
+            "<option value='Monument'>Monument</option>" +
+            "<option value='Church'>Church</option>" +
+            "<option value='Mosque'>Mosque</option>" +
+            "<option value='Library'>Library</option>" +
+            "<option value='Station'>Station</option>" +
+            "<option value='Food And Beverage'>Food And Beverage</option>" +
+            "<option value='Commercial Building'>Commercial Building</option>" +
+            "<option value='Sports/Recreation Center'> Sports/Recreation Center</option>" +
+            "<option value='Police'>Police</option>" +
+            "<option value='Shopping Mall/Shops'>Shopping Mall/Shops</option>" +
+            "<option value='Market'>Market</option>" +
+            "<option value='Stadium'> Stadium</option>" +
+            "<option value='Bar/Pub/Club'> Bar/Pub/Club</option>" +
+            "<option value='Embassy'>Embassy</option>" +
+            "<option value='Casino'>Casino</option>" +
+            "<option value='Quay'>Quay</option>" +
+            "<option value='Utilities'>Utilities</option>" +
+            "<option value='Street'>Street</option>" +
+            "<option value='Parking lot'>Parking lot</option>" +
+            "</select>" +
             "</td>" +
             "</tr>" +
-            "<tr><th>Poi Name</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.poi+"' id='poi_name1' name='poi_name1'/>" + "</td></tr>" +
-            "<tr><th>Branch Poi Name</th><td>"+ "<input type='checkbox' onclick='combineName1()'  id='pc1' name='pc'>"+ "</td></tr>" +
-            "<tr><th>Residential Poi Name</th><td>"+ "<input type='checkbox' onclick='combineNameR1()'  id='pcr1' name='pcr1'>"+ "</td></tr>" +
-            "<tr><th>Alternative Name</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.alternative_name+"' id='an1' name='an1'/>" + "</td></tr>" +
-            "<tr><th>Lot No</th><td>" + "<input type='text' class='form-control' id='lot_no1' value='"+feature.properties.lot_no+"' name='lot_no1'>"+ "</td></tr>" +
-            "<tr><th>Grab Street</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.grab_street+"' id='gs1' name='gs1'/>"+ "</td></tr>" +
+            "<tr><th>Poi Name</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.name + "' id='poi_name1' name='poi_name1'/>" + "</td></tr>" +
+            "<tr><th>Branch Poi Name</th><td>" + "<input type='checkbox' onclick='combineName1()'  id='pc1' name='pc'>" + "</td></tr>" +
+            "<tr><th>Residential Poi Name</th><td>" + "<input type='checkbox' onclick='combineNameR1()'  id='pcr1' name='pcr1'>" + "</td></tr>" +
+            "<tr><th>Alternative Name</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.alternative_name + "' id='an1' name='an1'/>" + "</td></tr>" +
+            "<tr><th>Lot No</th><td>" + "<input type='text' class='form-control' id='lot_no1' value='" + data.features[0].properties.lot_no + "' name='lot_no1'>" + "</td></tr>" +
+            "<tr><th>Grab Street</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.grab_street + "' id='gs1' name='gs1'/>" + "</td></tr>" +
 
-            "<tr><th>Fill Grab Street</th><td>"+'<input type="checkbox"  onclick="combineNameGS1()" id="pgs1" name="pgs1">'+ "</td></tr>" +
+            "<tr><th>Fill Grab Street</th><td>" + '<input type="checkbox"  onclick="combineNameGS1()" id="pgs1" name="pgs1">' + "</td></tr>" +
 
-            "<tr><th>Street Name</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.street_name+"' id='street_name1' name='street_name1'/>"+ "</td></tr>" +
-            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.area_building_name_neighbourhood+"' id='nh1' name='nh1'/>"+ "</td></tr>" +
-
-
-            "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.mukim+"' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
-            "<tr><th>Daerah</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.daerah+"' id='daerah1' name='daerah1'/></td><td><input type='checkbox'  onclick='combineDaerah()' id='daerah_chk1' name='daerah_chk1'>" + "</td></tr>" +
+            "<tr><th>Street Name</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.street_name + "' id='street_name1' name='street_name1'/>" + "</td></tr>" +
+            "<tr><th>Area/Building/Neighbourhood</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.area_building_name_neighbourhood + "' id='nh1' name='nh1'/>" + "</td></tr>" +
 
 
-            "<tr><th>Post Code</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.post_code+"' id='post_code1' name='post_code1'/>" + "</td></tr>" +
-            "<tr><th>City Name</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.city_name+"' id='cn1' name='cn1'/>"+ "</td></tr>" +
-            "<tr><th>State</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.state+"' id='state1' name='state1'/>" + "</td></tr>" +
-            "<tr><th>XY</th><td>" + feature.properties.xy + "</td></tr>" +
+            "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.mukim + "' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
+            "<tr><th>Daerah</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.daerah + "' id='daerah1' name='daerah1'/></td><td><input type='checkbox'  onclick='combineDaerah()' id='daerah_chk1' name='daerah_chk1'>" + "</td></tr>" +
 
-            '<tr><th>Image Path</th><td>'+
-            '<input type="text" class="form-control" value="'+feature.properties.image_path+'" id="img_path1" name="img_path1">'+
-            '<button onclick="getNewPath()" class="btn btn-success">get new path</button>'+
-            '</td></tr>'+
+
+            "<tr><th>Post Code</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.post_code + "' id='post_code1' name='post_code1'/>" + "</td></tr>" +
+            "<tr><th>City Name</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.city_name + "' id='cn1' name='cn1'/>" + "</td></tr>" +
+            "<tr><th>State</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.state + "' id='state1' name='state1'/>" + "</td></tr>" +
+            "<tr><th>XY</th><td>" + data.features[0].properties.xy + "</td></tr>" +
+
+            '<tr><th>Image Path</th><td>' +
+            '<input type="text" class="form-control" value="' + data.features[0].properties.image_path + '" id="img_path1" name="img_path1">' +
+            '<button onclick="getNewPath()" class="btn btn-success">get new path</button>' +
+            '</td></tr>' +
 
             // '<tr><th>Image preview </th><td>'+
             // '<img src="'+'http://121.121.232.53:88'+img_sel_path+'" width=30px height=30px/>'+
@@ -150,56 +172,89 @@ function percentages() {
             "<tr><td><button class='btn btn-success' onclick='updateRec()'>update</button></td><td><button class='btn btn-danger' onclick='deleteRec()'>Delete</button></td></tr>" +
             "</table>";
         ;
-        layer.on({
-          click: function (e) {
-            $("#feature-title").html(feature.properties.id);
+        // layer.on({
+        //   click: function (e) {
+          //  $("#feature-title").html(data.features[0].properties.id);
             $("#feature-info").html(content);
             $("#featureModal").modal("show");
-            highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
+            highlight.clearLayers().addLayer(L.circleMarker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], highlightStyle));
+        //
+        //   }
+        // });
 
-          }
-        });
+        //  }
+        //   }
+        // });
+        // $.getJSON("services/plot.php?id="+user_id, function (data) {
+        //   percent.addData(JSON.parse(data[0].json_build_object));
+        //   // map.addLayer(landuse);
+        //   // setTimeout(function(){
+        //   map.addLayer(percent);
+        //   // },2000)
+        // });
+        activeSelectedLayerPano()
       }
-    }
-  });
-  $.getJSON("services/plot.php?id="+user_id, function (data) {
-    percent.addData(JSON.parse(data[0].json_build_object));
-    // map.addLayer(landuse);
-    // setTimeout(function(){
-    map.addLayer(percent);
-    // },2000)
+      });
+
+
+
+
   });
 }
 
 
 
-var incom='';
+//var incom='';
 function incomplete() {
-  if(incom!=''){
-    map.removeLayer(incom);
-  }
-  incom = L.geoJson(null, {
-    pointToLayer: function (feature, latlng) {
-      label = String("Lot No:"+feature.properties.lot_no)
-      return L.circleMarker(latlng, {
-        radius: 5,
-        fillColor: '#E20000',
-        fillOpacity: 1,
-        color: '#E20000',
-        weight: 1,
-        title: '',
-        riseOnHover: true
-      }).bindLabel(label)
-    },
-    onEachFeature: function (feature, layer) {
-      if (feature.properties) {
+  // if(incom!=''){
+  //   map.removeLayer(incom);
+  // }
+  // incom = L.geoJson(null, {
+  //   pointToLayer: function (feature, latlng) {
+  //     label = String("Lot No:"+feature.properties.lot_no)
+  //     return L.circleMarker(latlng, {
+  //       radius: 5,
+  //       fillColor: '#E20000',
+  //       fillOpacity: 1,
+  //       color: '#E20000',
+  //       weight: 1,
+  //       title: '',
+  //       riseOnHover: true
+  //     }).bindLabel(label)
+  //   },
+  //   onEachFeature: function (feature, layer) {
+  //     if (feature.properties) {
+
+  map.off('click');
+  map.on('click', function(e) {
+    //map.off('click');
+    // Build the URL for a GetFeatureInfo
+    var url = getFeatureInfoUrl(
+        map,
+        inpoi,
+        e.latlng,
+        {
+          'info_format': 'application/json',
+          'propertyName': 'NAME,AREA_CODE,DESCRIPTIO'
+        }
+    );
+    $.ajax({
+      url: 'services/proxy.php?url='+encodeURIComponent(url),
+      dataType: 'JSON',
+      //data: data,
+      method: 'GET',
+      async: false,
+      success: function callback(data) {
+
+
+
         var content = "<table class='table table-striped table-bordered table-condensed'>" +
-            "<tr style='display: none;'><th>Id</th><td>" + "<input type='text' class='form-control' value="+feature.id+" id='id1' name='id1' readonly/>" + "</td></tr>" +
+            "<tr style='display: none;'><th>Id</th><td>" + "<input type='text' class='form-control' value="+data.features[0].properties.id+" id='id1' name='id1' readonly/>" + "</td></tr>" +
 
             "<tr><th>Business Type</th><td>"+
 
             "<select name='bt1'  class='form-control' id='bt1' >"+
-            "<option  value='"+feature.properties.business_type+"'>"+feature.properties.business_type+"</option>"+
+            "<option  value='"+data.features[0].properties.business_type+"'>"+data.features[0].properties.business_type+"</option>"+
             "<option value='Healthcare' >Healthcare</option>"+
             "<option value='Education'>Education</option>"+
             "<option value='Temple'>Temple</option>"+
@@ -232,27 +287,27 @@ function incomplete() {
             "</select>"+
             "</td>" +
             "</tr>" +
-            "<tr><th>Poi Name</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.poi+"' id='poi_name1' name='poi_name1'/>" + "</td></tr>" +
+            "<tr><th>Poi Name</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.name+"' id='poi_name1' name='poi_name1'/>" + "</td></tr>" +
             "<tr><th>Branch Poi Name</th><td>"+ "<input type='checkbox' onclick='combineName1()'  id='pc1' name='pc'>"+ "</td></tr>" +
             "<tr><th>Residential Poi Name</th><td>"+ "<input type='checkbox' onclick='combineNameR1()'  id='pcr1' name='pcr1'>"+ "</td></tr>" +
-            "<tr><th>Alternative Name</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.alternative_name+"' id='an1' name='an1'/>" + "</td></tr>" +
-            "<tr><th>Lot No</th><td>" + "<input type='text' class='form-control' id='lot_no1' value='"+feature.properties.lot_no+"' name='lot_no1'>"+ "</td></tr>" +
-            "<tr><th>Grab Street</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.grab_street+"' id='gs1' name='gs1'/>"+ "</td></tr>" +
+            "<tr><th>Alternative Name</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.alternative_name+"' id='an1' name='an1'/>" + "</td></tr>" +
+            "<tr><th>Lot No</th><td>" + "<input type='text' class='form-control' id='lot_no1' value='"+data.features[0].properties.lot_no+"' name='lot_no1'>"+ "</td></tr>" +
+            "<tr><th>Grab Street</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.grab_street+"' id='gs1' name='gs1'/>"+ "</td></tr>" +
             "<tr><th>Fill Grab Street</th><td>"+'<input type="checkbox"  onclick="combineNameGS1()" id="pgs1" name="pgs1">'+ "</td></tr>" +
 
-            "<tr><th>Street Name</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.street_name+"' id='street_name1' name='street_name1'/>"+ "</td></tr>" +
-            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.area_building_name_neighbourhood+"' id='nh1' name='nh1'/>"+ "</td></tr>" +
+            "<tr><th>Street Name</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.street_name+"' id='street_name1' name='street_name1'/>"+ "</td></tr>" +
+            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.area_building_name_neighbourhood+"' id='nh1' name='nh1'/>"+ "</td></tr>" +
 
-            "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.mukim+"' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
-            "<tr><th>Daerah</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.daerah+"' id='daerah1' name='daerah1'/></td><td><input type='checkbox'  onclick='combineDaerah()' id='daerah_chk1' name='daerah_chk1'>" + "</td></tr>" +
+            "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.mukim+"' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
+            "<tr><th>Daerah</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.daerah+"' id='daerah1' name='daerah1'/></td><td><input type='checkbox'  onclick='combineDaerah()' id='daerah_chk1' name='daerah_chk1'>" + "</td></tr>" +
 
-            "<tr><th>Post Code</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.post_code+"' id='post_code1' name='post_code1'/>" + "</td></tr>" +
-            "<tr><th>City Name</th><td>"+ "<input type='text' class='form-control' value='"+feature.properties.city_name+"' id='cn1' name='cn1'/>"+ "</td></tr>" +
-            "<tr><th>State</th><td>" + "<input type='text' class='form-control' value='"+feature.properties.state+"' id='state1' name='state1'/>" + "</td></tr>" +
-            "<tr><th>XY</th><td>" + feature.properties.xy + "</td></tr>" +
+            "<tr><th>Post Code</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.post_code+"' id='post_code1' name='post_code1'/>" + "</td></tr>" +
+            "<tr><th>City Name</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.city_name+"' id='cn1' name='cn1'/>"+ "</td></tr>" +
+            "<tr><th>State</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.state+"' id='state1' name='state1'/>" + "</td></tr>" +
+            "<tr><th>XY</th><td>" + data.features[0].properties.xy + "</td></tr>" +
 
             '<tr><th>Image Path</th><td>'+
-            '<input type="text" class="form-control" value="'+feature.properties.image_path+'" id="img_path1" name="img_path1">'+
+            '<input type="text" class="form-control" value="'+data.features[0].properties.image_path+'" id="img_path1" name="img_path1">'+
             '<button onclick="getNewPath()" class="btn btn-success">get new path</button>'+
             '</td></tr>'+
 
@@ -263,24 +318,32 @@ function incomplete() {
             "<tr><td><button class='btn btn-success' onclick='updateRec()'>update</button></td><td><button class='btn btn-danger' onclick='deleteRec()'>Delete</button></td></tr>" +
             "</table>";
         ;
-        layer.on({
-          click: function (e) {
-            $("#feature-title").html(feature.properties.id);
+        // layer.on({
+        //   click: function (e) {
+        //     $("#feature-title").html(feature.properties.id);
             $("#feature-info").html(content);
             $("#featureModal").modal("show");
-               highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
-
-          }
-        });
+               highlight.clearLayers().addLayer(L.circleMarker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], highlightStyle));
+  //
+  //         }
+  //       });
+  //     }
+  //   }
+  // });
+  // $.getJSON("services/plot1.php?id="+user_id, function (data) {
+  //   incom.addData(JSON.parse(data[0].json_build_object));
+  //   // map.addLayer(landuse);
+  //   // setTimeout(function(){
+  //   map.addLayer(incom);
+  //   // },2000)
+  // });
+        activeSelectedLayerPano()
       }
-    }
-  });
-  $.getJSON("services/plot1.php?id="+user_id, function (data) {
-    incom.addData(JSON.parse(data[0].json_build_object));
-    // map.addLayer(landuse);
-    // setTimeout(function(){
-    map.addLayer(incom);
-    // },2000)
+    });
+
+
+
+
   });
 }
 
@@ -337,8 +400,12 @@ function updateRec(){
     // contentType: "application/json; charset=utf-8",
     success: function callback(response) {
       alert(response);
-      percentages()
-      incomplete()
+     // percentages()
+     // incomplete()
+      cpoi.setParams({fake: Date.now()}, false);
+      inpoi.setParams({fake: Date.now()}, false);
+      map.addLayer(cpoi);
+      map.addLayer(inpoi);
       $('#featureModal').modal('toggle');
       highlight.clearLayers()
     }
@@ -356,8 +423,12 @@ function deleteRec(){
     // contentType: "application/json; charset=utf-8",
     success: function callback(response) {
       alert(response);
-      percentages()
-      incomplete()
+    //  percentages()
+    //  incomplete()
+      cpoi.setParams({fake: Date.now()}, false);
+      inpoi.setParams({fake: Date.now()}, false);
+      map.addLayer(cpoi);
+      map.addLayer(inpoi);
       $('#featureModal').modal('toggle');
       highlight.clearLayers()
     }
@@ -506,8 +577,8 @@ setTimeout(function(){
     "Points of Interest": {
       //"Area B Violations All": theaterLayer,
       "Pano Layer":customer,
-      "Complete":percent,
-      "Incomplete":incom,
+     // "Complete":percent,
+     // "Incomplete":incom,
       "District Boundary":dist_boundary,
       "State Boundary":state,
 	  "Mukim Boundary":mukim_daerah,
@@ -744,8 +815,8 @@ function drawNewPoint(){
 
 
 $(document).ready(function () {
-  percentages();
-  incomplete();
+ // percentages();
+  //incomplete();
   if(user_id=='2'||user_id=='22'||user_id=='23'||user_id=='23'||user_id=='26'){
     $('#ex').show();
     $('#pie_chart').show()
@@ -986,10 +1057,22 @@ function savedataCustomer(){
     success: function callback(response) {
       alert(response);
       removemarker()
-      percentages()
-      incomplete()
+    //  percentages()
+    //  incomplete()
       map.removeLayer(cd);
+      cd.setParams({fake: Date.now()}, false);
       map.addLayer(cd);
+      map.removeLayer(cpoi);
+      map.removeLayer(inpoi);
+      cpoi.setParams({fake: Date.now()}, false);
+      inpoi.setParams({fake: Date.now()}, false);
+      map.addLayer(cpoi);
+      map.addLayer(inpoi);
+
+
+
+
+
     }
   });
 }
@@ -1047,8 +1130,14 @@ if(gs==''){
   success: function callback(response) {
         alert(response);
     removemarker()
-    percentages()
-    incomplete()
+ //   percentages()
+ //   incomplete()
+    map.removeLayer(cpoi);
+    map.removeLayer(inpoi);
+    cpoi.setParams({fake: Date.now()}, false);
+    inpoi.setParams({fake: Date.now()}, false);
+    map.addLayer(cpoi);
+    map.addLayer(inpoi);
   }
 });
 }
