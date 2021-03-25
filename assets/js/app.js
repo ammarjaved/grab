@@ -102,7 +102,7 @@ function percentages() {
 
         //  if (feature.properties) {
         var content = "<table class='table table-striped table-bordered table-condensed'>" +
-            "<tr style='display: none;'><th>Id</th><td>" + "<input type='text' class='form-control' value=" + data.features[0].properties.id + " id='id1' name='id1' readonly/>" + "</td></tr>" +
+            "<tr style='display: none;'><th>Id</th><td>" + "<input type='text' class='form-control' value=" + data.features[0].id.split('.')[1] + " id='id1' name='id1' readonly/>" + "</td></tr>" +
             "<tr><th>Business Type</th><td>" +
             "<select name='bt1'  class='form-control' id='bt1' >" +
             "<option  value='" + data.features[0].properties.business_type + "'>" + data.features[0].properties.business_type + "</option>" +
