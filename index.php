@@ -78,8 +78,8 @@ header("Location:" . $loc . "/grab/login.php");
 
 
 
-            <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="drawNewPoint()">Add&nbsp;POI</a></li>
-            <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="removemarker()">Remove Marker</a></li>
+            <li class="hidden-xs" id="dnp" style="display: none;"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="drawNewPoint()">Add&nbsp;POI</a></li>
+            <li class="hidden-xs" id="drp" style="display: none;"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="removemarker()">Remove Marker</a></li>
               <li class="hidden-xs" id="ex" style="display: none;"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="showExcelModel()">Export Excel</a></li>
 
               <li class="hidden-xs"><a  href="services/logout.php">Logout</a></li>
@@ -103,7 +103,7 @@ header("Location:" . $loc . "/grab/login.php");
                     <h3 class="panel-title">
                         <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
                     <div class="row">
-                        <button class="btn btn-success" onclick="activeSelectedCustomerActual()">Activate Address</button>
+                        <button class="btn btn-success" style="display: none;" id="asc" onclick="activeSelectedCustomerActual()">Activate Address</button>
                         <button class="btn btn-success" onclick="percentages()">Activate Complete</button>
                         <button class="btn btn-success" style="margin-top: 10px;" onclick="incomplete()">Activate Incomplete</button>
                     </div>

@@ -163,14 +163,19 @@ function percentages() {
             '<tr><th>Image Path</th><td>' +
             '<input type="text" class="form-control" value="' + data.features[0].properties.image_path + '" id="img_path1" name="img_path1">' +
             '<button onclick="getNewPath()" class="btn btn-success">get new path</button>' +
-            '</td></tr>' +
+            '</td></tr>';
 
             // '<tr><th>Image preview </th><td>'+
             // '<img src="'+'http://121.121.232.53:88'+img_sel_path+'" width=30px height=30px/>'+
             // '</td></tr>'+
+            if(user_id=="40"||user_id=="41"||user_id=="42"){
 
-            "<tr><td><button class='btn btn-success' onclick='updateRec()'>update</button></td><td><button class='btn btn-danger' onclick='deleteRec()'>Delete</button></td></tr>" +
-            "</table>";
+            }else{
+              content=content+"<tr><td><button class='btn btn-success' onclick='updateRec()'>update</button></td><td><button class='btn btn-danger' onclick='deleteRec()'>Delete</button></td></tr>";
+
+            }
+
+           content=content+ "</table>";
         ;
         // layer.on({
         //   click: function (e) {
@@ -309,15 +314,19 @@ function incomplete() {
             '<tr><th>Image Path</th><td>'+
             '<input type="text" class="form-control" value="'+data.features[0].properties.image_path+'" id="img_path1" name="img_path1">'+
             '<button onclick="getNewPath()" class="btn btn-success">get new path</button>'+
-            '</td></tr>'+
+            '</td></tr>';
 
             // '<tr><th>Image preview </th><td>'+
             // '<img src="'+'http://121.121.232.53:88'+img_sel_path+'" width=30px height=30px/>'+
             // '</td></tr>'+
+        if(user_id=="40"||user_id=="41"||user_id=="42"){
 
-            "<tr><td><button class='btn btn-success' onclick='updateRec()'>update</button></td><td><button class='btn btn-danger' onclick='deleteRec()'>Delete</button></td></tr>" +
-            "</table>";
-        ;
+        }else{
+          content=content+"<tr><td><button class='btn btn-success' onclick='updateRec()'>update</button></td><td><button class='btn btn-danger' onclick='deleteRec()'>Delete</button></td></tr>";
+
+        }
+        content=content+"</table>";
+
         // layer.on({
         //   click: function (e) {
         //     $("#feature-title").html(feature.properties.id);
@@ -552,7 +561,9 @@ cd = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   cursor:'pointer',
   transparent: true
 }, {buffer: 10});
-cd.addTo(map);
+if(user_id!="40"&&user_id!="41"&&user_id!="42") {
+  cd.addTo(map);
+}
 
 
 
@@ -573,32 +584,57 @@ var baseLayers = {
   "Aerial Imagery": st1
 };
 setTimeout(function(){
-  var groupedOverlays = {
-    "Points of Interest": {
-      //"Area B Violations All": theaterLayer,
-      "Pano Layer":customer,
-     // "Complete":percent,
-     // "Incomplete":incom,
-      "District Boundary":dist_boundary,
-      "State Boundary":state,
-	  "Mukim Boundary":mukim_daerah,
-	  "Locality Boundary":locality,
-      "Postcode Boundary":postcode,
-     // "Customers":grab_customer,
-      "Address":cd,
-      // ,
-       "complete poi":cpoi,
-       "incomplete poi":inpoi
+
+  var groupedOverlays='';
+  if(user_id=="40"||user_id=="41"||user_id=="42"){
+    groupedOverlays = {
+      "Points of Interest": {
+        //"Area B Violations All": theaterLayer,
+        "Pano Layer": customer,
+        // "Complete":percent,
+        // "Incomplete":incom,
+        "District Boundary": dist_boundary,
+        "State Boundary": state,
+        "Mukim Boundary": mukim_daerah,
+      //  "Locality Boundary": locality,
+       // "Postcode Boundary": postcode,
+        // "Customers":grab_customer,
+        //"Address": cd,
+        // ,
+        "complete poi": cpoi,
+        "incomplete poi": inpoi
 
 
-      // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
-    },
-    //,
-    "Reference": {
+        // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
+      },
+      //,
+      "Reference": {}
+    };
+  }else {
+    groupedOverlays = {
+      "Points of Interest": {
+        //"Area B Violations All": theaterLayer,
+        "Pano Layer": customer,
+        // "Complete":percent,
+        // "Incomplete":incom,
+        "District Boundary": dist_boundary,
+        "State Boundary": state,
+        "Mukim Boundary": mukim_daerah,
+        "Locality Boundary": locality,
+        "Postcode Boundary": postcode,
+        // "Customers":grab_customer,
+        "Address": cd,
+        // ,
+        "complete poi": cpoi,
+        "incomplete poi": inpoi
 
-    }
-  };
 
+        // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
+      },
+      //,
+      "Reference": {}
+    };
+  }
   var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
     collapsed: isCollapsed
   }).addTo(map);
@@ -817,10 +853,20 @@ function drawNewPoint(){
 $(document).ready(function () {
  // percentages();
   //incomplete();
-  if(user_id=='2'||user_id=='22'||user_id=='23'||user_id=='23'||user_id=='26'){
+  if(user_id=='2'||user_id=='22'||user_id=='23'||user_id=='26'){
     $('#ex').show();
-    $('#pie_chart').show()
+    //$('#pie_chart').show()
 
+  }
+
+  if(user_id=='40'||user_id=='41'||user_id=='42'){
+    $('#drp').hide();
+    $('#dnp').hide();
+    $('#asc').hide();
+  }else{
+    $('#drp').show();
+    $('#dnp').show();
+    $('#asc').show();
   }
 
   activeSelectedLayerPano()
