@@ -29,27 +29,28 @@ class ExportExcel extends connection
 
 
 
-
+        $slash_sp='/';
           if($inc=='no') {
-              $sql = 'select id, name as "POI Name", business_type as "Business Type", lot_no as "Lot No", street_name as "Street Name", post_code as "Post Code", state as "State", xy, 
-			area_building_name_neighbourhood as "Area", city_name as "City Name", image_path as "Photo", grab_street as "Grab Street", alternative_name as "Alternative Name",created_by
+
+              $sql = 'select id, name as "english name", business_type as "business type", lot_no as "house", street_name as "street", post_code as "postcode", state as "state", split_part(xy,'."'".$slash_sp."'".',1) as X,split_part(xy,'."'".$slash_sp."'".',2) as Y , 
+			area_building_name_neighbourhood as "Area", city_name as "L1(City)", image_path as "Photo", grab_street as "Grab Street", alternative_name as "Alternative Name",created_by
 			from poi_data where date_time::date>=' . "'" . $date1 . "'" . '::date and date_time::date<=' . "'" . $date2 . "'" . '::date and name is not null and business_type is not null  and
                 street_name is not null and  post_code is not null and state is not null and xy is not null 
-                and area_building_name_neighbourhood is not null and city_name is not null and image_path is not null and
-                grab_street is not null and image_path<>' . "''" . ' ;';
+                and area_building_name_neighbourhood is not null and city_name is not null  and
+                grab_street is not null and image_path<>' . "''" . ' and image_path is not null ;';
           }else{
-              $sql = 'select a.* from (select id, name as "POI Name", business_type as "Business Type", lot_no as "Lot No", street_name as "Street Name", post_code as "Post Code", state as "State", xy, 
-			area_building_name_neighbourhood as "Area", city_name as "City Name", image_path as "Photo", grab_street as "Grab Street", alternative_name as "Alternative Name",created_by,date_time
+              $sql = 'select a.* from (select id, name as "english name", business_type as "business type", lot_no as "house", street_name as "street", post_code as "postcode", state as "state", split_part(xy,'."'".$slash_sp."'".',1) as X,split_part(xy,'."'".$slash_sp."'".',2) as Y , 
+			area_building_name_neighbourhood as "Area", city_name as "L1(City)", image_path as "Photo", grab_street as "Grab Street", alternative_name as "Alternative Name",created_by,date_time
 			from poi_data where  name is  null or business_type is null or
             street_name is  null or  post_code is  null or state is  null or xy is null
             or area_building_name_neighbourhood is null or city_name is null or
             grab_street is null or image_path is not null or image_path<>' . "''" . ' or image_path=' . "'null'" . ') as a
              where a.date_time::date>=' . "'" . $date1 . "'" . '::date and a.date_time::date<=' . "'" . $date2 . "'" . '::date  and a."Photo"=\'\' or a."Photo"=\'null\' or
-a."Photo" is null;';
+            a."Photo" is null;';
           }
 
 
-      //    echo $sql;
+         //echo $sql;
 
 		  
       // exit();
