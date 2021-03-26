@@ -29,7 +29,7 @@ class ExportExcel extends connection
 
 
 
-        $slash_sp='/';
+        $slash_sp=',';
           if($inc=='no') {
 
               $sql = 'select id, name as "english name", business_type as "business type", lot_no as "house", street_name as "street", post_code as "postcode", state as "state", split_part(xy,'."'".$slash_sp."'".',1) as X,split_part(xy,'."'".$slash_sp."'".',2) as Y , 
