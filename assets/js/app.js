@@ -596,7 +596,7 @@ setTimeout(function(){
         "District Boundary": dist_boundary,
         "State Boundary": state,
         "Mukim Boundary": mukim_daerah,
-      //  "Locality Boundary": locality,
+        "Locality Boundary": locality,
        // "Postcode Boundary": postcode,
         // "Customers":grab_customer,
         //"Address": cd,
