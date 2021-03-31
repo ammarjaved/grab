@@ -116,10 +116,12 @@
                     selected: true
                 }, {
                     name: 'complete',
-                    y: complete
+                    y: complete,
+                    color: 'green'
                 }, {
                     name: 'Incomplete',
-                    y: incomplete
+                    y: incomplete,
+                    color:'red'
                 }, {
                     name: 'Remainung Count',
                     y: remaining
