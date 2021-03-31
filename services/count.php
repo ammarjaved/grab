@@ -39,6 +39,9 @@ class Pss extends connection
                 or area_building_name_neighbourhood is null or city_name is null or image_path is null or
                 grab_street is null or image_path='' or image_path='null'";
 
+        $sql4="SELECT count(*)
+                FROM public.poi_data where status='exported'";
+
 
         $result_query1 = pg_query($sql1);
         if ($result_query1) {
@@ -52,6 +55,11 @@ class Pss extends connection
         $result_query3= pg_query($sql3);
         if ($result_query3) {
             $output['incomplete']= pg_fetch_all($result_query3);
+        }
+
+        $result_query4= pg_query($sql4);
+        if ($result_query4) {
+            $output['exported']= pg_fetch_all($result_query4);
         }
 
 
