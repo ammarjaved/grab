@@ -145,7 +145,7 @@
                 // for(var k in response[i]){
                 //     console.log('key is'+k+'valuis'+response[i][k])
                 // }
-                str=str+'<div class="col-md-1">'+
+                str=str+'<div class="col-md-2" style="padding-top: 20px;">'+
                        ' <div class="card">'+
                        ' <div class="btn btn-info">'+
                        ' <h5 class="card-title">'+response[i].user_name+'</h5>'+
