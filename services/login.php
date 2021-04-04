@@ -19,11 +19,12 @@ class LoginUser extends connection
       // exit();
 
       $check_sql = "select id,user_name,password from tbl_users where user_name='$user_name' and password='$user_pass'";
-      //echo $check_sql;
+    //  echo $check_sql;
       $check_query = pg_query($check_sql);
 
       $rs = pg_fetch_array($check_query);
     //  print_r($rs);
+    //  exit();
       if ($rs['user_name'] == $user_name && $rs['password']==$user_pass) {
           $_SESSION['un']=$rs['user_name'];
           $_SESSION['uid']=$rs['id'];
