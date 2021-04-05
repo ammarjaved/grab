@@ -29,8 +29,10 @@ class LoginUser extends connection
           $_SESSION['un']=$rs['user_name'];
           $_SESSION['uid']=$rs['id'];
           header("Location:../index.php");
+		   $this->closeConnection();
           return "success";
       }else{
+		   $this->closeConnection();
           header("Location:../login.php");
       }
   }

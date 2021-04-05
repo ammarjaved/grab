@@ -99,6 +99,8 @@ class ExportExcel extends connection
             echo implode("\t", array_values($row)) . "\r\n";
 			
         }
+		
+		$this->closeConnection();
     }
 
 }
