@@ -473,7 +473,7 @@ var st1=L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
   subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
 
-customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+customer = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:pano_layer',
   format: 'image/png',
   maxZoom: 22,
@@ -483,7 +483,7 @@ customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
 customer.addTo(map);
 
 
-dist_boundary = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+dist_boundary = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:district boundary',
   format: 'image/png',
   maxZoom: 22,
@@ -493,7 +493,7 @@ dist_boundary = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms",
 dist_boundary.addTo(map);
 
 
-state = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+state = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:state_boundary',
   format: 'image/png',
   maxZoom: 22,
@@ -502,7 +502,7 @@ state = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
 }, {buffer: 10});
 state.addTo(map);
 
-postcode = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+postcode = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:poscode_boundary',
   format: 'image/png',
   maxZoom: 22,
@@ -511,7 +511,7 @@ postcode = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
 }, {buffer: 10});
 //postcode.addTo(map);
 
-cpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+cpoi = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:complete_data',
   format: 'image/png',
   maxZoom: 22,
@@ -520,7 +520,7 @@ cpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
 }, {buffer: 10});
 cpoi.addTo(map);
 
-locality = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+locality = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:locality_boundary',
   format: 'image/png',
   maxZoom: 22,
@@ -528,7 +528,7 @@ locality = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   transparent: true
 }, {buffer: 10});
 
-mukim_daerah = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+mukim_daerah = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:sempadan_mukim',
   format: 'image/png',
   maxZoom: 22,
@@ -536,7 +536,7 @@ mukim_daerah = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", 
   transparent: true
 }, {buffer: 10});
 //cpoi.addTo(map);
-inpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+inpoi = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:incomplete_data',
   format: 'image/png',
   maxZoom: 22,
@@ -544,7 +544,7 @@ inpoi = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
   transparent: true
 }, {buffer: 10});
 inpoi.addTo(map);
-// grab_customer = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+// grab_customer = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
 //   layers: 'GRAB:grab_customer',
 //   format: 'image/png',
 //   maxZoom: 22,
@@ -553,7 +553,7 @@ inpoi.addTo(map);
 // }, {buffer: 10});
 // grab_customer.addTo(map)
 
-cd = L.tileLayer.wms("http://121.121.232.53:7090/geoserver/GRAB/wms", {
+cd = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:customer_data',
   format: 'image/png',
   maxZoom: 22,
@@ -826,7 +826,7 @@ function drawNewPoint(){
 
         '<div class="form-group" style="width: 280px;">'+
         '<label for="img" >Image preview    :</label>'+
-        '<a href="'+'http://121.121.232.53:88'+img_sel_path+'" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; onclick= rotate_img(&quot;pic1&quot)  &gt;Rotate image&lt;/button&gt;\'><img src="'+'http://121.121.232.53:88'+img_sel_path+'" width=30px height=30px/></a>'+
+        '<a href="'+'http://121.121.232.54:88'+img_sel_path+'" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; onclick= rotate_img(&quot;pic1&quot)  &gt;Rotate image&lt;/button&gt;\'><img src="'+'http://121.121.232.54:88'+img_sel_path+'" width=30px height=30px/></a>'+
         '</div>'+
 
 
@@ -1499,7 +1499,7 @@ function activeSelectedCustomerActual(){
 
               '<div class="form-group" style="width: 280px;">'+
               '<label for="img" >Image preview    :</label>'+
-              '<a href="'+'http://121.121.232.53:88'+img_sel_path+'" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; onclick= rotate_img(&quot;pic1&quot)  &gt;Rotate image&lt;/button&gt;\'><img src="'+'http://121.121.232.53:88'+img_sel_path+'" width=30px height=30px/></a>'+
+              '<a href="'+'http://121.121.232.54:88'+img_sel_path+'" class=\'example-image-link\' data-lightbox=\'example-set\' title=\'&lt;button class=&quot;primary &quot; onclick= rotate_img(&quot;pic1&quot)  &gt;Rotate image&lt;/button&gt;\'><img src="'+'http://121.121.232.54:88'+img_sel_path+'" width=30px height=30px/></a>'+
               '</div>'+
 
 
