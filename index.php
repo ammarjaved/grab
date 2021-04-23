@@ -244,7 +244,7 @@ header("Location:" . $loc . "/grab/login.php");
     <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="assets/jquery.form.js"></script>
     <script src="https://unpkg.com/esri-leaflet@1.0.5"></script>
 
     <script src="assets/leaflet_draw/src/Leaflet.draw.js"></script>
