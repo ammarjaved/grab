@@ -565,7 +565,14 @@ if(user_id!="40"&&user_id!="41"&&user_id!="42") {
   cd.addTo(map);
 }
 
-
+inc_boundary = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
+  layers: 'GRAB:incomplete_boundary',
+  format: 'image/png',
+  maxZoom: 22,
+  zIndex: 10,
+  transparent: true
+}, {buffer: 10});
+inc_boundary.addTo(map);
 
 
 
@@ -626,7 +633,8 @@ setTimeout(function(){
         "Address": cd,
         // ,
         "complete poi": cpoi,
-        "incomplete poi": inpoi
+        "incomplete poi": inpoi,
+        "Incomplete_boundary":inc_boundary
 
 
         // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
