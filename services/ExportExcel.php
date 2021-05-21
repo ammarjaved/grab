@@ -1,4 +1,5 @@
 <?php
+ini_set('MAX_EXECUTION_TIME', '-1');
 session_start();
 include("connection.php");
 class ExportExcel extends connection
