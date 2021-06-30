@@ -399,7 +399,7 @@ function updateRec(){
   // var state=$("#state1").val();
   // var nh=$("#nh1").val();
   // var cn=$("#cn1").val();
-  var gs=combineNameGS1().val().replace(/\'/g, "''");
+  var gs=combineNameGS1().replace(/\'/g, "''");
   var poi=encodeURIComponent($("#poi_name1").val().replace(/\'/g, "''"))
   var bt=encodeURIComponent($("#bt1").val().replace(/\'/g, "''"))
   var lot_no=encodeURIComponent($("#lot_no1").val().replace(/\'/g, "''"))
