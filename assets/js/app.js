@@ -469,14 +469,14 @@ map.on("click", function(e) {
 var st=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 //.addTo(map);
 var st1=L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-  maxZoom: 22,
+  maxZoom: 21,
   subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
 
 customer = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:pano_layer',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -486,7 +486,7 @@ customer.addTo(map);
 dist_boundary = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:district boundary',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -496,7 +496,7 @@ dist_boundary.addTo(map);
 state = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:state_boundary',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -505,7 +505,7 @@ state.addTo(map);
 postcode = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:poscode_boundary',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -514,7 +514,7 @@ postcode = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
 cpoi = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:complete_data',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -523,7 +523,7 @@ cpoi.addTo(map);
 locality = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:locality_boundary',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -531,7 +531,7 @@ locality = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
 mukim_daerah = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:sempadan_mukim',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -539,7 +539,7 @@ mukim_daerah = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", 
 inpoi = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:incomplete_data',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
@@ -547,7 +547,7 @@ inpoi.addTo(map);
 // grab_customer = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
 //   layers: 'GRAB:grab_customer',
 //   format: 'image/png',
-//   maxZoom: 22,
+//   maxZoom: 21,
 //   zIndex: 10,
 //   transparent: true
 // }, {buffer: 10});
@@ -556,7 +556,7 @@ inpoi.addTo(map);
 cd = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:customer_data',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   cursor:'pointer',
   transparent: true
@@ -568,7 +568,7 @@ if(user_id!="40"&&user_id!="41"&&user_id!="42") {
 inc_boundary = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   layers: 'GRAB:incomplete_boundary',
   format: 'image/png',
-  maxZoom: 22,
+  maxZoom: 21,
   zIndex: 10,
   transparent: true
 }, {buffer: 10});
