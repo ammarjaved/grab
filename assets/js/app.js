@@ -207,7 +207,10 @@ function percentages() {
   });
 }
 
-
+function replaceAppos(val){
+  var rs= val.replace(/'|\\'/g, "\\'");
+  return rs;
+}
 
 //var incom='';
 function incomplete() {
@@ -292,16 +295,16 @@ function incomplete() {
             "</select>"+
             "</td>" +
             "</tr>" +
-            "<tr><th>Poi Name</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.name+"' id='poi_name1' name='poi_name1'/>" + "</td></tr>" +
+            "<tr><th>Poi Name</th><td>" + "<input type='text' class='form-control' value='' id='poi_name1' name='poi_name1'/>" + "</td></tr>" +
             "<tr><th>Branch Poi Name</th><td>"+ "<input type='checkbox' onclick='combineName1()'  id='pc1' name='pc'>"+ "</td></tr>" +
             "<tr><th>Residential Poi Name</th><td>"+ "<input type='checkbox' onclick='combineNameR1()'  id='pcr1' name='pcr1'>"+ "</td></tr>" +
-            "<tr><th>Alternative Name</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.alternative_name+"' id='an1' name='an1'/>" + "</td></tr>" +
-            "<tr><th>Lot No</th><td>" + "<input type='text' class='form-control' id='lot_no1' value='"+data.features[0].properties.lot_no+"' name='lot_no1'>"+ "</td></tr>" +
-            "<tr><th>Grab Street</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.grab_street+"' id='gs1' name='gs1'/>"+ "</td></tr>" +
+            "<tr><th>Alternative Name</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.alternative_name.replace("'","\'")+"' id='an1' name='an1'/>" + "</td></tr>" +
+            "<tr><th>Lot No</th><td>" + "<input type='text' class='form-control' id='lot_no1' value='' name='lot_no1'>"+ "</td></tr>" +
+            "<tr><th>Grab Street</th><td>"+ "<input type='text' class='form-control' value='' id='gs1' name='gs1'/>"+ "</td></tr>" +
             "<tr><th>Fill Grab Street</th><td>"+'<input type="checkbox"  onclick="combineNameGS1()" id="pgs1" name="pgs1">'+ "</td></tr>" +
 
-            "<tr><th>Street Name</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.street_name+"' id='street_name1' name='street_name1'/>"+ "</td></tr>" +
-            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.area_building_name_neighbourhood+"' id='nh1' name='nh1'/>"+ "</td></tr>" +
+            "<tr><th>Street Name</th><td>"+ "<input type='text' class='form-control' value='' id='street_name1' name='street_name1'/>"+ "</td></tr>" +
+            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.area_building_name_neighbourhood.replace("'","\'")+"' id='nh1' name='nh1'/>"+ "</td></tr>" +
 
             "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.mukim+"' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
             "<tr><th>Daerah</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.daerah+"' id='daerah1' name='daerah1'/></td><td><input type='checkbox'  onclick='combineDaerah()' id='daerah_chk1' name='daerah_chk1'>" + "</td></tr>" +
@@ -332,6 +335,12 @@ function incomplete() {
         //     $("#feature-title").html(feature.properties.id);
             $("#feature-info").html(content);
             $("#featureModal").modal("show");
+
+        $("#poi_name1").val(data.features[0].properties.name)
+        $("#lot_no1").val(data.features[0].properties.lot_no)
+        $("#street_name1").val(data.features[0].properties.street_name)
+        $("#gs1").val(data.features[0].properties.grab_street)
+
                highlight.clearLayers().addLayer(L.circleMarker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], highlightStyle));
   //
   //         }
