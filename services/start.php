@@ -12,22 +12,22 @@ class Start extends connection
     {
 
 
-       $poi=pg_escape_string($_REQUEST['poi']);
-        $bt=pg_escape_string($_REQUEST['bt']);
-        $lot_no=pg_escape_string($_REQUEST['lot_no']);
-        $st_name=pg_escape_string($_REQUEST['st_name']);
-         $p_code=pg_escape_string($_REQUEST['p_code']);
-         $state=pg_escape_string($_REQUEST['state']);
-         $coor=pg_escape_string($_REQUEST['coor']);
-        $wkt=pg_escape_string($_REQUEST['geom']);
-        $cn=pg_escape_string($_REQUEST['cn']);
-        $nh=pg_escape_string($_REQUEST['nh']);
-        $uid=pg_escape_string($_REQUEST['uid']);
-        $img_path=pg_escape_string($_REQUEST['img_path']);
-        $gs=pg_escape_string($_REQUEST['gs']);
-        $an=pg_escape_string($_REQUEST['an']);
-        $mukim=pg_escape_string($_REQUEST['mukim']);
-        $daerah=pg_escape_string($_REQUEST['daerah']);
+       $poi=$_REQUEST['poi'];
+        $bt=$_REQUEST['bt'];
+        $lot_no=$_REQUEST['lot_no'];
+        $st_name=$_REQUEST['st_name'];
+         $p_code=$_REQUEST['p_code'];
+         $state=$_REQUEST['state'];
+         $coor=$_REQUEST['coor'];
+        $wkt=$_REQUEST['geom'];
+        $cn=$_REQUEST['cn'];
+        $nh=$_REQUEST['nh'];
+        $uid=$_REQUEST['uid'];
+        $img_path=$_REQUEST['img_path'];
+        $gs=$_REQUEST['gs'];
+        $an=$_REQUEST['an'];
+        $mukim=$_REQUEST['mukim'];
+        $daerah=$_REQUEST['daerah'];
 
 
 
@@ -41,8 +41,8 @@ class Start extends connection
 
 
 
-//       echo $sql_dist;
-//      exit();
+       //echo $sql_dist;
+     // exit();
         $result_query_dist = pg_query($sql_dist);
         if($result_query_dist)
         {

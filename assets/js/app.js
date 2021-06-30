@@ -719,7 +719,7 @@ function drawNewPoint(){
         '<option value="HealthCare" >Healthcare</option>'+
         '<option value="Education">Education</option>'+
         '<option value="Temple">Temple</option>'+
-        '<option value="Residential">Residential</option>'+
+        '<option value="Residential"  selected="selected">Residential</option>'+
         "<option value='Government building'>Government building</option>"+
         "<option value='Movie/Theatre'>Movie/theatre</option>"+
         "<option value='Hotel'>Hotel</option>"+
@@ -764,13 +764,18 @@ function drawNewPoint(){
         '</div>'+
 
         '<div class="form-group" style="width: 280px;">'+
+        '<label for="img" >Apartment:</label>'+
+        '<input type="checkbox"  id="apartment" name="apartment">'+
+        '</div>'+
+
+        '<div class="form-group" style="width: 280px;">'+
         '<label for="img" >Alternative Name :</label>'+
         '<input type="text" class="form-control" id="an" name="an">'+
         '</div>'+
 
         '<div class="form-group" style="width: 280px;">'+
         '<label for="img" >Lot No :</label>'+
-        '<input type="text" class="form-control"  value="" id="lot_no" name="lot_no">'+
+        '<input type="text" class="form-control"  id="lot_no" name="lot_no">'+
         '</div>'+
 
         '<div class="form-group" style="width: 280px;">'+
@@ -851,6 +856,7 @@ function drawNewPoint(){
 
     map.off("click");
     activeSelectedLayerPano();
+
 
 
 
@@ -937,7 +943,7 @@ function combineName(){
 
 function combineNameR(){
   if($('#pcr').is(':checked')){
-    var comb=$("#lot_no").val()+', '+$("#poi_name").val()+' '+$("#st_name").val()+', '+$("#nh").val();
+    var comb=$("#lot_no").val()+','+$("#poi_name").val()+' '+$("#st_name").val()+', '+$("#nh").val();
     oldValuePcr=$("#poi_name").val()
     $("#poi_name").val(comb)
   }else{
@@ -1092,10 +1098,12 @@ function savedataCustomer(){
     return false;
   }
 
-  if(bt=='Residential'){
-    if(lot_no==''){
-      alert("please fill lot no")
-      return false;
+  if($('#apartment1').is(':checked')==false) {
+    if (bt == 'Residential') {
+      if (lot_no == '') {
+        alert("please fill lot no")
+        return false;
+      }
     }
   }
 
@@ -1135,6 +1143,7 @@ function savedataCustomer(){
 
 
 function savedata(){
+
   combineNameGS();
   var poi=encodeURIComponent($("#poi_name").val().replace(/\'/g, "''"))
   var bt=encodeURIComponent($("#bt").val().replace(/\'/g, "''"))
@@ -1145,12 +1154,12 @@ function savedata(){
   var coor=$("#coor").val().replace(/\'/g, "''")
   var cn=encodeURIComponent($("#cn").val().replace(/\'/g, "''"))
   var nh=encodeURIComponent($("#nh").val().replace(/\'/g, "''"))
-  var gs=$("#gs").val()
-  var an=$("#an").val()
+  var gs=encodeURIComponent($("#gs").val().replace(/\'/g, "''"))
+  var an=encodeURIComponent($("#an").val().replace(/\'/g, "''"))
 
-  var mukim=$("#mukim").val()
+  var mukim=encodeURIComponent($("#mukim").val().replace(/\'/g, "''"))
 
-  var daerah=$("#daerah").val()
+  var daerah=encodeURIComponent($("#daerah").val().replace(/\'/g, "''"))
 
 
   var img_path=$("#img_path").val()
@@ -1165,10 +1174,12 @@ if(gs==''){
   return false;
 }
 
-  if(bt=='Residential'){
-    if(lot_no==''){
-      alert("please fill lot no")
-      return false;
+  if($('#apartment').is(':checked')==false) {
+    if (bt == 'Residential') {
+      if (lot_no == '') {
+        alert("please fill lot no")
+        return false;
+      }
     }
   }
 
@@ -1382,7 +1393,7 @@ function activeSelectedCustomerActual(){
               '<option value="HealthCare" >Healthcare</option>'+
               '<option value="Education">Education</option>'+
               '<option value="Temple">Temple</option>'+
-              '<option value="Residential">Residential</option>'+
+              '<option value="Residential" selected="selected">Residential</option>'+
               "<option value='Government building'>Government building</option>"+
               "<option value='Movie/Theatre'>Movie/theatre</option>"+
               "<option value='Hotel'>Hotel</option>"+
@@ -1424,6 +1435,11 @@ function activeSelectedCustomerActual(){
               '<div class="form-group" style="width: 280px;">'+
               '<label for="img" >Branch POI Name:</label>'+
               '<input type="checkbox" onclick="combineName3()"  id="pc3" name="pc">'+
+              '</div>'+
+
+              '<div class="form-group" style="width: 280px;">'+
+              '<label for="img" >Apartment:</label>'+
+              '<input type="checkbox" onclick="combineName3()"  id="apartment1" name="apartment1">'+
               '</div>'+
 
               '<div class="form-group" style="width: 280px;">'+
