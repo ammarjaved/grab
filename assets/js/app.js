@@ -148,7 +148,7 @@ function percentages() {
             "<tr><th>Fill Grab Street</th><td>" + '<input type="checkbox"  onclick="combineNameGS1()" id="pgs1" name="pgs1">' + "</td></tr>" +
 
             "<tr><th>Street Name</th><td>" + "<input type='text' class='form-control' value='' id='street_name1' name='street_name1'/>" + "</td></tr>" +
-            "<tr><th>Area/Building/Neighbourhood</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.area_building_name_neighbourhood + "' id='nh1' name='nh1'/>" + "</td></tr>" +
+            "<tr><th>Area/Building/Neighbourhood</th><td>" + "<input type='text' class='form-control' value='' id='nh1' name='nh1'/>" + "</td></tr>" +
 
 
             "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='" + data.features[0].properties.mukim + "' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
@@ -187,6 +187,7 @@ function percentages() {
         $("#lot_no1").val(data.features[0].properties.lot_no)
         $("#street_name1").val(data.features[0].properties.street_name)
         $("#gs1").val(data.features[0].properties.grab_street)
+        $("#nh1").val(data.features[0].properties.area_building_name_neighbourhood)
 
             highlight.clearLayers().addLayer(L.circleMarker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], highlightStyle));
         //
@@ -310,7 +311,7 @@ function incomplete() {
             "<tr><th>Fill Grab Street</th><td>"+'<input type="checkbox"  onclick="combineNameGS1()" id="pgs1" name="pgs1">'+ "</td></tr>" +
 
             "<tr><th>Street Name</th><td>"+ "<input type='text' class='form-control' value='' id='street_name1' name='street_name1'/>"+ "</td></tr>" +
-            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='"+data.features[0].properties.area_building_name_neighbourhood.replace("'","\'")+"' id='nh1' name='nh1'/>"+ "</td></tr>" +
+            "<tr><th>Area/Building/Neighbourhood</th><td>"+ "<input type='text' class='form-control' value='' id='nh1' name='nh1'/>"+ "</td></tr>" +
 
             "<tr><th>Mukim</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.mukim+"' id='mukim1' name='mukim1'/></td><td><input type='checkbox'  onclick='combineMukim()' id='mukim_chk1' name='mukim_chk1'>" + "</td></tr>" +
             "<tr><th>Daerah</th><td>" + "<input type='text' class='form-control' value='"+data.features[0].properties.daerah+"' id='daerah1' name='daerah1'/></td><td><input type='checkbox'  onclick='combineDaerah()' id='daerah_chk1' name='daerah_chk1'>" + "</td></tr>" +
@@ -346,6 +347,8 @@ function incomplete() {
         $("#lot_no1").val(data.features[0].properties.lot_no)
         $("#street_name1").val(data.features[0].properties.street_name)
         $("#gs1").val(data.features[0].properties.grab_street)
+        $("#nh1").val(data.features[0].properties.area_building_name_neighbourhood)
+
 
                highlight.clearLayers().addLayer(L.circleMarker([data.features[0].geometry.coordinates[1], data.features[0].geometry.coordinates[0]], highlightStyle));
   //
@@ -559,6 +562,15 @@ inpoi = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
   transparent: true
 }, {buffer: 10});
 inpoi.addTo(map);
+
+g_10 = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
+  layers: 'GRAB:grid_10',
+  format: 'image/png',
+  maxZoom: 21,
+  zIndex: 10,
+  transparent: true
+}, {buffer: 10});
+//g_10.addTo(map);
 // grab_customer = L.tileLayer.wms("http://121.121.232.54:7090/geoserver/GRAB/wms", {
 //   layers: 'GRAB:grab_customer',
 //   format: 'image/png',
@@ -624,7 +636,8 @@ setTimeout(function(){
         //"Address": cd,
         // ,
         "complete poi": cpoi,
-        "incomplete poi": inpoi
+        "incomplete poi": inpoi,
+        "Grid 10X10": g_10
 
 
         // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
@@ -649,7 +662,9 @@ setTimeout(function(){
         // ,
         "complete poi": cpoi,
         "incomplete poi": inpoi,
-        "Incomplete_boundary":inc_boundary
+        "Incomplete_boundary":inc_boundary,
+        "Grid 10X10": g_10
+
 
 
         // "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
